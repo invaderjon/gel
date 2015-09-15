@@ -23,7 +23,7 @@ class IMemory
     /**
      * Destructor.
      */
-    virtual void ~IMemory() = 0;
+    virtual ~IMemory() = 0;
 
     /**
      * Allocates a block of memory.

@@ -8,4 +8,4 @@ script:
   - cd build
   - cmake .. -DBUILD_TESTS=ON
   - make
-  - ./tests
+  - ./all_tests

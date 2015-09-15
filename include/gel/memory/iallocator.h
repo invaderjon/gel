@@ -56,7 +56,7 @@ class IAllocator
 
 template<typename T>
 inline
-IAllocator::~IAllocator()
+IAllocator<T>::~IAllocator()
 {
 }
 
