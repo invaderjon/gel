@@ -1,0 +1,21 @@
+// config.g.h
+#ifndef GEL_CONFIG_H
+#define GEL_CONFIG_H
+
+// VERSION
+#define GEL_VERSION_MAJOR ${gelMajor}
+#define GEL_VERSION_MINOR ${gelMinor}
+#define GEL_VERSION_PATCH ${gelPatch}
+#define GEL_VERSION "${gelMajor}.${gelMinor}.${gelPatch}"
+
+// OPTIONS
+#define GEL_DEBUG         ${gelDebugEnabled}
+#define GEL_LOG           ${gelLogEnabled}
+
+// LOGGER OVERRIDE
+#if ${gelLoggingOverride}
+#define GEL_LOG_OVERRIDE
+#include ${gelLogger}
+#endif
+
+#endif

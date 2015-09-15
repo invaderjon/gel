@@ -1,0 +1,9 @@
+# IDEA files
+.idea/*
+
+# CMake Generated Files
+*.g.h
+*.g.cpp
+
+# Build Files
+build/*
