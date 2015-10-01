@@ -42,34 +42,46 @@ configure_file(configured.cmake.in ${SOURCE_DIR}/gel/config.g.cpp)
 
 # SOURCES
 set(INCLUDE_FILES
-        include/gel/gellib.h
         include/gel/gelint.h
-        include/gel/memory/imemory.h
-        include/gel/memory/iallocator.h
-        include/gel/memory/pool_allocator.h
+        include/gel/gellib.h
         include/gel/containers/imap.h
         include/gel/containers/iset.h
-        include/gel/io/istream.h
-        include/gel/debug/ilogger.h
         include/gel/core/itickable.h
+        include/gel/debug/ilogger.h
+        include/gel/io/istream.h
+        include/gel/math/vec2.h
+        include/gel/math/vec3.h
+        include/gel/math/vec4.h
+        include/gel/memory/iallocator.h
+        include/gel/memory/imemory.h
+        include/gel/memory/pool_allocator.h
         include/gel/time/clock.h
-        include/gel/time/time.h include/gel/math/vec3.h include/gel/math/vec2.h include/gel/math/vec4.h)
+        include/gel/time/time.h)
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
         src/gel/config.g.h
         src/gel/debug.cpp
         src/gel/debug.h
+        src/gel/gelint.cpp
+        src/gel/gellib.cpp
         src/gel/log.cpp
         src/gel/log.h
-        src/gel/util/logger.cpp
-        src/gel/util/logger.h
-        src/gel/memory/imemory.cpp
-        src/gel/memory/iallocator.cpp
-        src/gel/memory/pool_allocator.cpp
         src/gel/core/itickable.cpp
+        src/gel/containers/imap.cpp
+        src/gel/containers/iset.cpp
+        src/gel/debug/ilogger.cpp
+        src/gel/io/istream.cpp
+        src/gel/math/vec2.cpp
+        src/gel/math/vec3.cpp
+        src/gel/math/vec4.cpp
+        src/gel/memory/iallocator.cpp
+        src/gel/memory/imemory.cpp
+        src/gel/memory/pool_allocator.cpp
+        src/gel/time/clock.cpp
         src/gel/time/time.cpp
-        src/gel/time/clock.cpp)
+        src/gel/util/logger.cpp
+        src/gel/util/logger.h)
 
 # INCLUDES
 include_directories(include src)
