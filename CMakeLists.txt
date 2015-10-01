@@ -6,6 +6,19 @@ if ( POLICY CMP0048 )
         cmake_policy( SET CMP0048 OLD )
 endif()
 
+# PRE-REQS
+find_package( Threads REQUIRED )
+
+find_library(
+        LIB_GTEST
+        NAMES gtest libgtest
+        NO_DEFAULT_PATH
+        PATHS ${CMAKE_SOURCE_DIR}/lib/googletest
+)
+
+if ( LIB_GTEST MATCHES NOTFOUND )
+        message( FATAL_ERROR "The dependency gel must be located in ./lib/googletest. Run configure.py to remedy this." )
+endif()
 
 # ARGUMENTS
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
@@ -32,7 +45,15 @@ set(INCLUDE_FILES
         include/gel/gellib.h
         include/gel/gelint.h
         include/gel/memory/imemory.h
-        include/gel/memory/iallocator.h include/gel/memory/pool_allocator.h)
+        include/gel/memory/iallocator.h
+        include/gel/memory/pool_allocator.h
+        include/gel/containers/imap.h
+        include/gel/containers/iset.h
+        include/gel/io/istream.h
+        include/gel/debug/ilogger.h
+        include/gel/core/itickable.h
+        include/gel/time/clock.h
+        include/gel/time/time.h include/gel/math/vec3.h include/gel/math/vec2.h include/gel/math/vec4.h)
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
@@ -43,23 +64,43 @@ set(SOURCE_FILES
         src/gel/log.h
         src/gel/util/logger.cpp
         src/gel/util/logger.h
-        src/gel/memory/imemory.cpp src/gel/memory/iallocator.cpp src/gel/memory/pool_allocator.cpp)
+        src/gel/memory/imemory.cpp
+        src/gel/memory/iallocator.cpp
+        src/gel/memory/pool_allocator.cpp
+        src/gel/core/itickable.cpp
+        src/gel/time/time.cpp
+        src/gel/time/clock.cpp)
 
 # INCLUDES
-include_directories(src)
-include_directories(include)
+include_directories(include src)
 
 # GEL BUILD
 add_library( gel ${INCLUDE_FILES} ${SOURCE_FILES} )
 
 # TESTS
 if ( BUILD_TESTS )
-        set(MEMORY_TEST_FILES )
-        set(CONTAINER_TEST_FILES )
-        set(ALL_TEST_FILES ${MEMORY_TEST_FILES} ${CONTAINER_TEST_FILES})
+        set(MEMORY_TEST_FILES
+        )
 
-        include_directories(test)
+        set(CONTAINER_TEST_FILES
+        )
 
+        set(TIME_TEST_FILES
+                test/gel/time/clock.t.cpp
+        )
+
+        set(ALL_TEST_FILES
+                ${MEMORY_TEST_FILES}
+                ${CONTAINER_TEST_FILES}
+                ${TIME_TEST_FILES}
+        )
+
+        include_directories(
+                include
+                test
+        )
+
+        # BUILD
         add_executable( all_tests test.m.cpp ${ALL_TEST_FILES} )
-        target_link_libraries(gel)
+        target_link_libraries( all_tests ${LIB_GTEST} ${CMAKE_THREAD_LIBS_INIT} )
 endif()
