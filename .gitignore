@@ -7,3 +7,12 @@
 
 # Build Files
 build/*
+
+# GoogleTest Includes
+include/gtest/*
+
+# Configuration Files
+.config/*
+
+# Libraries
+lib/*
