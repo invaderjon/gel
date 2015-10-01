@@ -2,7 +2,7 @@
 #ifndef GEL_GELLIB_H
 #define GEL_GELLIB_H
 
-#include "gelint.h"
+#include "gel/gelint.h"
 
 namespace gel
 {

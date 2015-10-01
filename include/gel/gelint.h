@@ -1,6 +1,7 @@
 // gel_int.h
 #ifndef GEL_GELINT_H
 #define GEL_GELINT_H
+
 #include <stdint.h> // TODO: manual implementation
 
 namespace gel
