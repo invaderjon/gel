@@ -110,7 +110,7 @@ class TVec4
      * @tparam V The second vector type.
      */
     template<typename U, typename V>
-    explicit TVec4(const TVec2<U> v1, const TVec2& v2);
+    explicit TVec4(const TVec2<U> v1, const TVec2<V>& v2);
 
     /**
      * Constructs a copy of the vector with the given first component value.
