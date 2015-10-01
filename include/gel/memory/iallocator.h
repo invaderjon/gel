@@ -2,8 +2,8 @@
 #ifndef GEL_ALLOCATOR_H
 #define GEL_ALLOCATOR_H
 
-#include <gel/gellib.h>
-#include "imemory.h"
+#include "gel/gellib.h"
+#include "gel/memory/imemory.h"
 
 namespace gel
 {

@@ -1,7 +1,7 @@
 #ifndef GEL_IMEMORY_H
 #define GEL_IMEMORY_H
 
-#include <gel/gellib.h>
+#include "gel/gellib.h"
 
 namespace gel
 {
