@@ -1,6 +1,7 @@
 // vector.h
-#ifndef GEL_VECTOR_H
-#define GEL_VECTOR_H
+#ifndef GEL_VECT3_H
+#define GEL_VECT3_H
+#include <assert.h>
 #include "gel/gellib.h"
 
 namespace gel
@@ -8,6 +9,14 @@ namespace gel
 
 namespace math
 {
+template <typename T>
+class TRef2;
+
+template <typename T>
+class TRef3;
+
+template <typename T>
+class TRef4;
 
 template <typename T>
 class TVec2;
@@ -15,10 +24,9 @@ class TVec2;
 template <typename T>
 class TVec4;
 
-template<typename T>
+template <typename T>
 class TVec3
 {
-  private:
   public:
     typedef T ValueType;
 
@@ -35,13 +43,18 @@ class TVec3
     /**
      * Constructs a new vector.
      */
-    TVec3();
+    TVec3( );
 
     /**
      * Constructs this vector as a copy of the other.
      * @param v The vector to copy.
      */
-    TVec3(const TVec3<T>& v);
+    TVec3( const TVec3<T>& v );
+
+    /**
+     * Destructs the vector.
+     */
+    ~TVec3();
 
     // EXPLICIT CONSTRUCTORS
     /**
@@ -50,7 +63,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    explicit TVec3(const U& s);
+    explicit TVec3( const U& s );
 
     /**
      * Constructs a new vector.
@@ -62,7 +75,7 @@ class TVec3
      * @tparam W The third component value type.
      */
     template <typename U, typename V, typename W>
-    explicit TVec3(const U& s1, const V& s2, const W& s3);
+    explicit TVec3( const U& s1, const V& s2, const W& s3 );
 
     /**
      * Constructs a copy of the vector with the given last component value.
@@ -72,7 +85,7 @@ class TVec3
      * @tparam V The last component type.
      */
     template <typename U, typename V>
-    explicit TVec3(const TVec2<U>& v, const V& s);
+    explicit TVec3( const TVec2<U>& v, const V& s );
 
     /**
      * Constructs a copy of the vector with the given first component value.
@@ -82,7 +95,7 @@ class TVec3
      * @tparam V The vector type.
      */
     template <typename U, typename V>
-    explicit TVec3(const U& s, const TVec2<V>& v);
+    explicit TVec3( const U& s, const TVec2<V>& v );
 
     /**
      * Constructs a copy of the vector.
@@ -90,7 +103,7 @@ class TVec3
      * @tparam U The component type.
      */
     template <typename U>
-    explicit TVec3(const TVec3<U>& v);
+    explicit TVec3( const TVec3<U>& v );
 
     /**
      * Constructs a copy of the vector.
@@ -98,7 +111,10 @@ class TVec3
      * @tparam U The component type.
      */
     template <typename U>
-    explicit TVec3(const TVec4<U>& v);
+    explicit TVec3( const TVec4<U>& v );
+
+    // SWIZZLE CONSTRUCTORS
+    TVec3( const TRef3<T>& r );
 
     // UNARY OPERATORS
     /**
@@ -106,7 +122,7 @@ class TVec3
      *
      * @param v The vector to copy.
      */
-    TVec3<T> operator=(TVec3<T> v);
+    TVec3<T>& operator=( const TVec3<T>& v );
 
     /**
      * Makes this a copy of the other vector.
@@ -114,8 +130,8 @@ class TVec3
      * @param v The vector to copy.
      * @tparam U The component value type..
      */
-    template<typename U>
-    TVec3<T>& operator=(TVec3<U> v);
+    template <typename U>
+    TVec3<T>& operator=( const TVec3<U>& v );
 
     /**
      * Adds a scalar value to the components.
@@ -124,7 +140,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator+=(const U& s);
+    TVec3<T>& operator+=( const U& s );
 
     /**
      * Adds another vector to this.
@@ -133,7 +149,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator+=(const TVec3<U>& v);
+    TVec3<T>& operator+=( const TVec3<U>& v );
 
     /**
      * Subtracts a scale from the components.
@@ -142,7 +158,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator-=(const U& s);
+    TVec3<T>& operator-=( const U& s );
 
     /**
      * Subtracts another vector from this.
@@ -151,7 +167,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator-=(const TVec3<U>& v);
+    TVec3<T>& operator-=( const TVec3<U>& v );
 
     /**
      * Multiplies the this by a scalar.
@@ -160,7 +176,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator*=(const U& s);
+    TVec3<T>& operator*=( const U& s );
 
     /**
      * Multiplies this vector by another.
@@ -169,7 +185,7 @@ class TVec3
      * @tparam The component value type.
      */
     template <typename U>
-    TVec3<T>& operator*=(const TVec3<U>& v);
+    TVec3<T>& operator*=( const TVec3<U>& v );
 
     /**
      * Divides this vector by a scalar.
@@ -178,7 +194,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator/=(const U& s);
+    TVec3<T>& operator/=( const U& s );
 
     /**
      * Divides this vector by another.
@@ -187,17 +203,27 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator/=(const TVec3<U>& v);
+    TVec3<T>& operator/=( const TVec3<U>& v );
 
     /**
      * Adds one to the vector's component values.
      */
-    TVec3<T>& operator++();
+    TVec3<T>& operator++( );
 
     /**
      * Subtracts one from the vector's component values.
      */
-    TVec3<T>& operator--();
+    TVec3<T>& operator--( );
+
+    /**
+     * Adds one to the vector's component values.
+     */
+    TVec3<T>& operator++( int );
+
+    /**
+     * Subtracts one from the vector's component values.
+     */
+    TVec3<T>& operator--( int );
 
     // UNARY BIT OPERATORS
     /**
@@ -207,7 +233,7 @@ class TVec3
      * @tparam The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator%=(const U& s);
+    TVec3<T>& operator%=( const U& s );
 
     /**
      * Performs a component-wise modulus.
@@ -216,7 +242,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator%=(const TVec3<U>& v);
+    TVec3<T>& operator%=( const TVec3<U>& v );
 
     /**
      * Performs the bitwise-and operation with each of the components.
@@ -225,7 +251,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator&=(const U& s);
+    TVec3<T>& operator&=( const U& s );
 
     /**
      * Performs a component-wise bitwise-and operation.
@@ -234,7 +260,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator&=(const TVec3<U>& v);
+    TVec3<T>& operator&=( const TVec3<U>& v );
 
     /**
      * Performs the bitwise-or operation with each of the components.
@@ -243,7 +269,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator|=(const U& s);
+    TVec3<T>& operator|=( const U& s );
 
     /**
      * Performs a component-wise bitwise-or operation.
@@ -252,7 +278,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator|=(const TVec3<U>& v);
+    TVec3<T>& operator|=( const TVec3<U>& v );
 
     /**
      * Performs the bitwise-xor operation with each of the components.
@@ -261,7 +287,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator^=(const U& s);
+    TVec3<T>& operator^=( const U& s );
 
     /**
      * Performs a component-wise bitwise-xor operation.
@@ -270,7 +296,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator^=(const TVec3<U>& v);
+    TVec3<T>& operator^=( const TVec3<U>& v );
 
     /**
      * Performs the shift-left operation with each of the components.
@@ -279,7 +305,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator<<=(const U& s);
+    TVec3<T>& operator<<=( const U& s );
 
     /**
      * Performs a component-wise bitwise-shift left operation.
@@ -288,7 +314,7 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator<<=(const TVec3<U>& v);
+    TVec3<T>& operator<<=( const TVec3<U>& v );
 
     /**
      * Performs the shift-right operation with each of the components.
@@ -297,7 +323,7 @@ class TVec3
      * @tparam U The scalar value type.
      */
     template <typename U>
-    TVec3<T>& operator>>=(const U& s);
+    TVec3<T>& operator>>=( const U& s );
 
     /**
      * Performs a component-wise bitwise-shift right operation.
@@ -306,13 +332,13 @@ class TVec3
      * @tparam U The component value type.
      */
     template <typename U>
-    TVec3<T>& operator>>=(const TVec3<U>& v);
+    TVec3<T>& operator>>=( const TVec3<U>& v );
 
     // ACCESSOR OPERATORS
     /**
      * Sets the vector component value at the given index.
      */
-    ValueType &operator[]( Size index );
+    ValueType& operator[]( Size index );
 
     /**
      * Gets the vector component value at the given index.
@@ -320,37 +346,451 @@ class TVec3
     const ValueType& operator[]( Size index ) const;
 };
 
-template<typename T>
-class TVec4
+template <typename T>
+class TRef3
 {
-  private:
   public:
-    typedef T value_type;
+    T& x;
+    T& y;
+    T& z;
 
-    union
-    {
-        struct
-        {
-            value_type x, y, z, w;
-        };
-        struct
-        {
-            value_type r, g, b, a;
-        };
-        struct
-        {
-            value_type s, t, p, q;
-        };
-        struct
-        {
-            value_type i, j, k, l;
-        };
-        struct
-        {
-            value_type lum, hue, sat, alpha;
-        };
-    };
+    // CONSTRUCTORS
+    /**
+     * Constructs reference vector for the reference components.
+     * @param s1 The first reference component.
+     * @param s2 The second reference component.
+     * @param s3 The third reference component.
+     */
+    TRef3( T& s1, T& s2, T& s3 );
+
+    /**
+     * Constructs a new reference vector for an existing reference vector.
+     * @param r The reference vector.
+     */
+    TRef3( const TRef3<T>& r );
+
+    /**
+     * Constructs a new reference vector for the given vector.
+     * @param v The vector to reference.
+     */
+    TRef3( const TVec3<T>& v );
+
+    /**
+     * Destructs the reference vector.
+     */
+    ~TRef3();
 };
+
+// 3D VECTOR
+
+// IMPLICIT CONSTRUCTORS
+template <typename T>
+inline
+TVec3<T>::TVec3( ) : x( 0 ), y( 0 ), z( 0 )
+{
+}
+
+template <typename T>
+inline
+TVec3<T>::TVec3( const TVec3<T>& v ) : x( v.x ), y( v.y ), z( v.z )
+{
+}
+
+template <typename T>
+TVec3<T>::~TVec3()
+{
+}
+
+// EXPLICIT CONSTRUCTORS
+template <typename T>
+template <typename U>
+inline
+TVec3<T>::TVec3( const U& s ) : x( static_cast<T>( s ) ),
+                                y( static_cast<T>( s ) ),
+                                z( static_cast<T>( s ) )
+{
+}
+
+template <typename T>
+template <typename U, typename V, typename W>
+inline
+TVec3<T>::TVec3( const U& s1, const V& s2, const W& s3 )
+    : x( static_cast<T>( s1 ) ), y( static_cast<T>( s2 ) ),
+      z( static_cast<T>( s3 ) )
+{
+}
+
+template <typename T>
+template <typename U, typename V>
+TVec3<T>::TVec3( const TVec2<U>& v, const V& s )
+    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
+      z( static_cast<T>( s ) )
+{
+}
+
+template <typename T>
+template <typename U, typename V>
+TVec3<T>::TVec3( const U& s, const TVec2<V>& v )
+    : x( static_cast<T>( s ) ), y( static_cast<T>( v.x ) ),
+      z( static_cast<T>( v.y ) )
+{
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>::TVec3( const TVec3<U>& v )
+    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
+      z( static_cast<T>( v.z ) )
+{
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>::TVec3( const TVec4<U>& v )
+    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
+      z( static_cast<T>( v.z ) )
+{
+}
+
+// SWIZZLE CONSTRUCTORS
+template <typename T>
+inline
+TVec3<T>::TVec3( const TRef3<T>& r ) : x( r.x ), y( r.y ), y( r.z )
+{
+}
+
+// UNARY OPERATORS
+template <typename T>
+inline
+TVec3<T>& TVec3<T>::operator=( const TVec3<T>& v )
+{
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator=( const TVec3<U>& v )
+{
+    x = static_cast<T>( v.x );
+    y = static_cast<T>( v.y );
+    z = static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator+=( const U& s )
+{
+    x += static_cast<T>( s );
+    y += static_cast<T>( s );
+    z += static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator+=( const TVec3<U>& v )
+{
+    x += static_cast<T>( v.x );
+    y += static_cast<T>( v.y );
+    z += static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator-=( const U& s )
+{
+    x -= static_cast<T>( s );
+    y -= static_cast<T>( s );
+    z -= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator-=( const TVec3<U>& v )
+{
+    x -= static_cast<T>( v.x );
+    y -= static_cast<T>( v.y );
+    z -= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator*=( const U& s )
+{
+    x *= static_cast<T>( s );
+    y *= static_cast<T>( s );
+    z *= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator*=( const TVec3<U>& v )
+{
+    x *= static_cast<T>( v.x );
+    y *= static_cast<T>( v.y );
+    z *= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator/=( const U& s )
+{
+    assert( s != 0 );
+    x /= static_cast<T>( s );
+    y /= static_cast<T>( s );
+    z /= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator/=( const TVec3<U>& v )
+{
+    assert( v.x != 0 && v.y != 0 && v.z != 0 );
+    x /= static_cast<T>( v.x );
+    y /= static_cast<T>( v.y );
+    z /= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+inline
+TVec3<T>& TVec3<T>::operator++()
+{
+    ++x;
+    ++y;
+    ++z;
+    return *this;
+}
+
+template <typename T>
+inline
+TVec3<T>& TVec3<T>::operator--()
+{
+    --x;
+    --y;
+    --z;
+    return *this;
+}
+
+template <typename T>
+inline
+TVec3<T>& TVec3<T>::operator++( int )
+{
+    ++x;
+    ++y;
+    ++z;
+    return *this;
+}
+
+template <typename T>
+inline
+TVec3<T>& TVec3<T>::operator--( int )
+{
+    --x;
+    --y;
+    --z;
+    return *this;
+}
+
+// UNARY BIT OPERATORS
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator%=( const U& s )
+{
+    assert( s != 0 );
+    x %= static_cast<T>( s );
+    y %= static_cast<T>( s );
+    z %= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator%=( const TVec3<U>& v )
+{
+    assert( v.x != 0 && v.y != 0 && v.z != 0 );
+    x %= static_cast<T>( v.x );
+    y %= static_cast<T>( v.y );
+    z %= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator&=( const U& s )
+{
+    x &= static_cast<T>( s );
+    y &= static_cast<T>( s );
+    z &= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator&=( const TVec3<U>& v )
+{
+    x &= static_cast<T>( v.x );
+    y &= static_cast<T>( v.y );
+    z &= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator|=( const U& s )
+{
+    x |= static_cast<T>( s );
+    y |= static_cast<T>( s );
+    z |= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator|=( const TVec3<U>& v )
+{
+    x |= static_cast<T>( v.x );
+    y |= static_cast<T>( v.y );
+    z |= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator^=( const U& s )
+{
+    x ^= static_cast<T>( s );
+    y ^= static_cast<T>( s );
+    z ^= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator^=( const TVec3<U>& v )
+{
+    x ^= static_cast<T>( v.x );
+    y ^= static_cast<T>( v.y );
+    z ^= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator<<=( const U& s )
+{
+    x <<= static_cast<T>( s );
+    y <<= static_cast<T>( s );
+    z <<= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator<<=( const TVec3<U>& v )
+{
+    x <<= static_cast<T>( v.x );
+    y <<= static_cast<T>( v.y );
+    z <<= static_cast<T>( v.z );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator>>=( const U& s )
+{
+    x >>= static_cast<T>( s );
+    y >>= static_cast<T>( s );
+    z >>= static_cast<T>( s );
+    return *this;
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>& TVec3<T>::operator>>=( const TVec3<U>& v )
+{
+    x >>= static_cast<T>( v.x );
+    y >>= static_cast<T>( v.y );
+    z >>= static_cast<T>( v.z );
+    return *this;
+}
+
+// ACCESSOR OPERATORS
+template <typename T>
+inline
+const T& TVec3<T>::operator[]( Size index ) const
+{
+    assert( index >= 0 && index < 3 );
+    return ( &x )[index];
+}
+
+template <typename T>
+inline
+T& TVec3<T>::operator[]( Size index )
+{
+    assert( index >= 0 && index < 3 );
+    return ( &x )[index];
+}
+
+// 3D REFERENCE VECTOR
+
+// CONSTRUCTORS
+template <typename T>
+inline
+TRef3<T>::TRef3( T& s1, T& s2, T& s3 ) : x( s1 ), y( s2 ), z( s3 )
+{
+}
+
+template <typename T>
+inline
+TRef3<T>::TRef3( const TRef3<T>& r ) : x( r.x ), y( r.y ), z( r.z )
+{
+}
+
+template <typename T>
+inline
+TRef3<T>::TRef3( const TVec3<T>& v ) : x( v.x ), y( v.y ), z( v.z )
+{
+}
+
+template <typename T>
+inline
+TRef3<T>::~TRef3()
+{
+}
 
 } // End nspc math
 

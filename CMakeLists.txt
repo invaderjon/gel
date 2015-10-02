@@ -49,6 +49,9 @@ set(INCLUDE_FILES
         include/gel/core/itickable.h
         include/gel/debug/ilogger.h
         include/gel/io/istream.h
+        include/gel/math/precision.h
+        include/gel/math/swizzle.h
+        include/gel/math/vec.h
         include/gel/math/vec2.h
         include/gel/math/vec3.h
         include/gel/math/vec4.h
@@ -56,7 +59,7 @@ set(INCLUDE_FILES
         include/gel/memory/imemory.h
         include/gel/memory/pool_allocator.h
         include/gel/time/clock.h
-        include/gel/time/time.h)
+        include/gel/time/time.h include/gel/math/vec1.h)
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
@@ -72,6 +75,9 @@ set(SOURCE_FILES
         src/gel/containers/iset.cpp
         src/gel/debug/ilogger.cpp
         src/gel/io/istream.cpp
+        src/gel/math/precision.cpp
+        src/gel/math/swizzle.cpp
+        src/gel/math/vec.cpp
         src/gel/math/vec2.cpp
         src/gel/math/vec3.cpp
         src/gel/math/vec4.cpp
@@ -81,7 +87,7 @@ set(SOURCE_FILES
         src/gel/time/clock.cpp
         src/gel/time/time.cpp
         src/gel/util/logger.cpp
-        src/gel/util/logger.h)
+        src/gel/util/logger.h src/gel/math/vec1.cpp)
 
 # INCLUDES
 include_directories(include src)
