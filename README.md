@@ -1,6 +1,9 @@
 # Game Engine Library #
 [![Build Status][Travis Badge]][Travis Link]
-[Standards][Sharing]
+
+## See ##
+
+[Standards Document][Standards]
 
 [Standards]: https://docs.google.com/document/d/1kvS76q5IqJwSYib1xX_rJ-QZFlZ6gON1AgMWmBlQPjQ
 [Travis Badge]: https://travis-ci.org/invaderjon/gel.svg?branch=master
