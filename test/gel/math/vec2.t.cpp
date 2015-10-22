@@ -116,6 +116,8 @@ TEST( TVec2, AccessOperators )
 
     v[0] = 5;
     ASSERT_EQ( 5, v[0] );
+
+    EXPECT_DEATH( v[2], "Assertion .* failed" );
 }
 
 TEST( TVec2, ArithmeticBinaryOperators )

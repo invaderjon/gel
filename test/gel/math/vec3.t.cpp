@@ -111,11 +111,13 @@ TEST( TVec3, AccessOperators )
 {
     using namespace gel::math;
 
-    Vec3 v( 1, 2, 3 );
+    TVec3<float> v( 1, 2, 3 );
     ASSERT_TRUE( v[0] == 1 && v[1] == 2 && v[2] == 3 );
 
     v[0] = 5;
     ASSERT_EQ( 5, v[0] );
+
+    EXPECT_DEATH( v[3], "Assertion .* failed" );
 }
 
 TEST( TVec3, ArithmeticBinaryOperators )
