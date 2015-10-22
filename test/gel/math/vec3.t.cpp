@@ -125,34 +125,34 @@ TEST( TVec3, ArithmeticBinaryOperators )
     Vec3 u( 1, 2, 3 );
     Vec3 v( 1, 2, 3 );
 
-    v =  v + 5.0f;
+    v =  v + 5;
     ASSERT_TRUE( v.x == 6 && v.y == 7 && v.z == 8 );
 
     v = v + u;
     ASSERT_TRUE( v.x == 7 && v.y == 9 && v.z == 11 );
 
-    v = v - 5.0f;
+    v = v - 5;
     ASSERT_TRUE( v.x == 2 && v.y == 4 && v.z == 6 );
 
     v = v - u;
     ASSERT_TRUE( v.x == 1 && v.y == 2 && v.z == 3 );
 
-    v = v * 5.0f;
+    v = v * 5;
     ASSERT_TRUE( v.x == 5 && v.y == 10 && v.z == 15 );
 
-    v = 5.0f * v;
+    v = 5 * v;
     ASSERT_TRUE( v.x == 25 && v.y == 50 && v.z == 75 );
 
-    v = v / 5.0f;
+    v = v / 5;
     ASSERT_TRUE( v.x == 5 && v.y == 10 && v.z == 15 );
 
-    v = v / 5.0f;
+    v = v / 5;
     ASSERT_TRUE( v.x == 1 && v.y == 2 && v.z == 3 );
 
-    v = 5.0f / v;
+    v = 5 / v;
     ASSERT_TRUE( v.x == 5.0f && v.y == 5.0f/2.0f && v.z == 5.0f/3.0f );
 
-    v = 5.0f / v;
+    v = 5 / v;
     ASSERT_TRUE( v.x == 1 && v.y == 2 && v.z == 3 );
 
     v = v * u;
@@ -166,8 +166,8 @@ TEST( TVec3, BitwiseBinaryOperators )
 {
     using namespace gel::math;
 
-    TVec3<int> u( 1, 0, 1 );
-    TVec3<int> v( 0, 1, 1 );
+    TVec3<long long> u( 1, 0, 1 );
+    TVec3<long long> v( 0, 1, 1 );
 
     ASSERT_EQ( TVec3<int>( 0, 0, 0 ), u & 0 );
     ASSERT_EQ( TVec3<int>( 0, 0, 1 ), u & v );
@@ -184,7 +184,7 @@ TEST( TVec3, ComparisonOperators )
     using namespace gel::math;
 
     Vec3 u( 1, 0, 1 );
-    Vec3 v( 0, 1, 1 );
+    TVec3<int> v( 0, 1, 1 );
 
     ASSERT_TRUE( u == u );
     ASSERT_FALSE( u == v );
@@ -210,10 +210,10 @@ TEST( TRef3, Comparison )
     using namespace gel::math;
 
     TVec3<float> u( 0, 1, 2 );
-    TVec3<float> v( 1, 2, 3 );
+    TVec3<int> v( 1, 2, 3 );
 
     TRef3<float> i( u );
-    TRef3<float> j( v );
+    TRef3<int> j( v );
 
     ASSERT_TRUE( u == i );
     ASSERT_FALSE( u == j );

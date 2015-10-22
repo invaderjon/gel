@@ -125,34 +125,34 @@ TEST( TVec4, ArithmeticBinaryOperators )
     Vec4 u( 1, 2, 3, 4 );
     Vec4 v( 1, 2, 3, 4 );
 
-    v =  v + 5.0f;
+    v =  v + 5;
     ASSERT_TRUE( v.x == 6 && v.y == 7 && v.z == 8 && v.w == 9 );
 
     v = v + u;
     ASSERT_TRUE( v.x == 7 && v.y == 9 && v.z == 11 && v.w == 13 );
 
-    v = v - 5.0f;
+    v = v - 5;
     ASSERT_TRUE( v.x == 2 && v.y == 4 && v.z == 6 && v.w == 8 );
 
     v = v - u;
     ASSERT_TRUE( v.x == 1 && v.y == 2 && v.z == 3 && v.w == 4 );
 
-    v = v * 5.0f;
+    v = v * 5;
     ASSERT_TRUE( v.x == 5 && v.y == 10 && v.z == 15 && v.w == 20 );
 
-    v = 5.0f * v;
+    v = 5 * v;
     ASSERT_TRUE( v.x == 25 && v.y == 50 && v.z == 75 && v.w == 100 );
 
-    v = v / 5.0f;
+    v = v / 5;
     ASSERT_TRUE( v.x == 5 && v.y == 10 && v.z == 15 && v.w == 20 );
 
-    v = v / 5.0f;
+    v = v / 5;
     ASSERT_TRUE( v.x == 1 && v.y == 2 && v.z == 3 && v.w == 4 );
 
-    v = 5.0f / v;
+    v = 5 / v;
     ASSERT_TRUE( v.x == 5.0f && v.y == 5.0f/2.0f && v.z == 5.0f/3.0f && v.w == 5.0f/4.0f );
 
-    v = 5.0f / v;
+    v = 5 / v;
     ASSERT_TRUE( v.x == 1 && v.y == 2 && v.z == 3 && v.w == 4 );
 
     v = v * u;
@@ -166,8 +166,8 @@ TEST( TVec4, BitwiseBinaryOperators )
 {
     using namespace gel::math;
 
-    TVec4<int> u( 1, 0, 1, 0 );
-    TVec4<int> v( 0, 1, 1, 0 );
+    TVec4<long long> u( 1, 0, 1, 0 );
+    TVec4<long long> v( 0, 1, 1, 0 );
 
     ASSERT_EQ( TVec4<int>( 0, 0, 0, 0 ), u & 0 );
     ASSERT_EQ( TVec4<int>( 0, 0, 1, 0 ), u & v );
@@ -184,7 +184,7 @@ TEST( TVec4, ComparisonOperators )
     using namespace gel::math;
 
     Vec4 u( 1, 0, 1, 0 );
-    Vec4 v( 0, 1, 1, 0 );
+    TVec4<long long> v( 0, 1, 1, 0 );
 
     ASSERT_TRUE( u == u );
     ASSERT_FALSE( u == v );

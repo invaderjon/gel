@@ -391,8 +391,8 @@ class TRef2
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator+( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator+( const TVec2<T>& v, const U& s );
 
 /**
  * Adds the components of two vectors.
@@ -411,8 +411,8 @@ TVec2<T> operator+( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator-( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator-( const TVec2<T>& v, const U& s );
 
 /**
  * Subtracts the components of two vectors.
@@ -431,8 +431,8 @@ TVec2<T> operator-( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator*( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator*( const TVec2<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -441,8 +441,8 @@ TVec2<T> operator*( const TVec2<T>& v, const T& s );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator*( const T& s, const TVec2<T>& v );
+template <typename T, typename U>
+TVec2<U> operator*( const T& s, const TVec2<U>& v );
 
 /**
  * Multiplies the components of two vectors.
@@ -461,8 +461,8 @@ TVec2<T> operator*( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator/( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator/( const TVec2<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -471,8 +471,8 @@ TVec2<T> operator/( const TVec2<T>& v, const T& s );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator/( const T& s, const TVec2<T>& v );
+template <typename T, typename U>
+TVec2<U> operator/( const T& s, const TVec2<U>& v );
 
 /**
  * Divides the components of two vectors.
@@ -491,8 +491,8 @@ TVec2<T> operator/( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator%( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator%( const TVec2<T>& v, const U& s );
 
 /**
  * Performs modulus on a vector and a scalar.
@@ -501,8 +501,8 @@ TVec2<T> operator%( const TVec2<T>& v, const T& s );
  * @param v The vector.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator%( const T& s, const TVec2<T>& v );
+template <typename T, typename U>
+TVec2<U> operator%( const T& s, const TVec2<U>& v );
 
 /**
  * Performs modulus on the components of two vectors.
@@ -522,8 +522,8 @@ TVec2<T> operator%( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator&( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator&( const TVec2<T>& v, const U& s );
 
 /**
  * Performs bitwise AND on the components from the two vectors.
@@ -542,8 +542,8 @@ TVec2<T> operator&( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator|( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator|( const TVec2<T>& v, const U& s );
 
 /**
  * Performs bitwise OR on the components from the two vectors.
@@ -563,8 +563,8 @@ TVec2<T> operator|( const TVec2<T>& u, const TVec2<T>& v );
  * @param s The scalar.
  * @return The resultant vector.
  */
-template <typename T>
-TVec2<T> operator^( const TVec2<T>& v, const T& s );
+template <typename T, typename U>
+TVec2<T> operator^( const TVec2<T>& v, const U& s );
 
 /**
  * Performs bitwise XOR on the components from the two vectors.
@@ -604,8 +604,38 @@ TVec2<T> operator>>( const TVec2<T>& u, unsigned int shift );
  * @param v The second vector.
  * @return If they are equal.
  */
-template <typename T>
-bool operator==( const TVec2<T>& u, const TVec2<T>& v );
+template <typename T, typename U>
+bool operator==( const TVec2<T>& u, const TVec2<U>& v );
+
+/**
+ * Checks if the components of two vectors are equal.
+ *
+ * @param u The first vector.
+ * @param v The second vector.
+ * @return If they are equal.
+ */
+template <typename T, typename U>
+bool operator==( const TVec2<T>& u, const TRef2<U>& v );
+
+/**
+ * Checks if the components of two vectors are equal.
+ *
+ * @param u The first vector.
+ * @param v The second vector.
+ * @return If they are equal.
+ */
+template <typename T, typename U>
+bool operator==( const TRef2<T>& u, const TVec2<U>& v );
+
+/**
+ * Checks if the components of two vectors are equal.
+ *
+ * @param u The first vector.
+ * @param v The second vector.
+ * @return If they are equal.
+ */
+template <typename T, typename U>
+bool operator==( const TRef2<T>& u, const TRef2<U>& v );
 
 /**
  * Checks if the components of two vectors are not equal.
@@ -614,8 +644,38 @@ bool operator==( const TVec2<T>& u, const TVec2<T>& v );
  * @param v The second vector.
  * @return If they are not equal.
  */
-template <typename T>
-bool operator!=( const TVec2<T>& u, const TVec2<T>& v );
+template <typename T, typename U>
+bool operator!=( const TVec2<T>& u, const TVec2<U>& v );
+
+/**
+ * Checks if the components of two vectors are not equal.
+ *
+ * @param u The first vector.
+ * @param v The second vector.
+ * @return If they are not equal.
+ */
+template <typename T, typename U>
+bool operator!=( const TVec2<T>& u, const TRef2<U>& v );
+
+/**
+ * Checks if the components of two vectors are not equal.
+ *
+ * @param u The first vector.
+ * @param v The second vector.
+ * @return If they are not equal.
+ */
+template <typename T, typename U>
+bool operator!=( const TRef2<T>& u, const TVec2<U>& v );
+
+/**
+ * Checks if the components of two vectors are not equal.
+ *
+ * @param u The first vector.
+ * @param v The second vector.
+ * @return If they are not equal.
+ */
+template <typename T, typename U>
+bool operator!=( const TRef2<T>& u, const TRef2<U>& v );
 
 // IMPLEMENTATION
 
@@ -970,6 +1030,13 @@ TVec2<T> operator+( const TVec2<T>& v, const T& s )
     return TVec2<T>( v.x + s, v.y + s );
 }
 
+template <typename T, typename U>
+inline
+TVec2<T> operator+( const TVec2<T>& v, const U& s )
+{
+    return ( v + static_cast<T>( s ) );
+};
+
 template <typename T>
 inline
 TVec2<T> operator+( const TVec2<T>& u, const TVec2<T>& v )
@@ -982,6 +1049,13 @@ inline
 TVec2<T> operator-( const TVec2<T>& v, const T& s )
 {
     return TVec2<T>( v.x - s, v.y - s );
+}
+
+template <typename T, typename U>
+inline
+TVec2<T> operator-( const TVec2<T>& v, const U& s )
+{
+    return ( v - static_cast<T>( s ) );
 }
 
 template <typename T>
@@ -998,11 +1072,25 @@ TVec2<T> operator*( const TVec2<T>& v, const T& s )
     return TVec2<T>( v.x * s, v.y * s );
 }
 
+template <typename T, typename U>
+inline
+TVec2<T> operator*( const TVec2<T>& v, const U& s )
+{
+    return ( v * static_cast<T>( s ) );
+}
+
 template <typename T>
 inline
 TVec2<T> operator*( const T& s, const TVec2<T>& v )
 {
     return TVec2<T>( s * v.x, s * v.y );
+}
+
+template <typename T, typename U>
+inline
+TVec2<U> operator*( const T& s, const TVec2<U>& v )
+{
+    return ( static_cast<U>( s ) * v );
 }
 
 template <typename T>
@@ -1020,12 +1108,26 @@ TVec2<T> operator/( const TVec2<T>& v, const T& s )
     return TVec2<T>( v.x / s, v.y / s );
 }
 
+template <typename T, typename U>
+inline
+TVec2<T> operator/( const TVec2<T>& v, const U& s )
+{
+    return ( v / static_cast<T>( s ) );
+}
+
 template <typename T>
 inline
 TVec2<T> operator/( const T& s, const TVec2<T>& v )
 {
     assert( v.x != 0 && v.y != 0 );
     return TVec2<T>( s / v.x, s / v.y );
+}
+
+template <typename T, typename U>
+inline
+TVec2<U> operator/( const T& s, const TVec2<U>& v )
+{
+    return ( static_cast<U>( s ) / v );
 }
 
 template <typename T>
@@ -1044,12 +1146,26 @@ TVec2<T> operator%( const TVec2<T>& v, const T& s )
     return TVec2<T>( v.x % s, v.y % s );
 }
 
+template <typename T, typename U>
+inline
+TVec2<T> operator%( const TVec2<T>& v, const U& s )
+{
+    return ( v % static_cast<T>( s ) );
+}
+
 template <typename T>
 inline
 TVec2<T> operator%( const T& s, const TVec2<T>& v )
 {
     assert( v.x != 0 && v.y != 0  );
     return TVec2<T>( s % v.x, s % v.y );
+}
+
+template <typename T, typename U>
+inline
+TVec2<U> operator%( const T& s, const TVec2<U>& v )
+{
+    return ( static_cast<U>( s ) % v );
 }
 
 template <typename T>
@@ -1068,6 +1184,13 @@ TVec2<T> operator&( const TVec2<T>& v, const T& s )
     return TVec2<T>( v.x & s, v.y & s );
 }
 
+template <typename T, typename U>
+inline
+TVec2<T> operator&( const TVec2<T>& v, const U& s )
+{
+    return ( v & static_cast<T>( s ) );
+}
+
 template <typename T>
 inline
 TVec2<T> operator&( const TVec2<T>& u, const TVec2<T>& v )
@@ -1082,6 +1205,13 @@ TVec2<T> operator|( const TVec2<T>& v, const T& s )
     return TVec2<T>( v.x | s, v.y | s );
 }
 
+template <typename T, typename U>
+inline
+TVec2<T> operator|( const TVec2<T>& v, const U& s )
+{
+    return ( v | static_cast<T>( s ) );
+}
+
 template <typename T>
 inline
 TVec2<T> operator|( const TVec2<T>& u, const TVec2<T>& v )
@@ -1094,6 +1224,13 @@ inline
 TVec2<T> operator^( const TVec2<T>& v, const T& s )
 {
     return TVec2<T>( v.x ^ s, v.y ^ s );
+}
+
+template <typename T, typename U>
+inline
+TVec2<T> operator^( const TVec2<T>& v, const U& s )
+{
+    return ( v ^ static_cast<T>( s ) );
 }
 
 template <typename T>
@@ -1117,58 +1254,58 @@ TVec2<T> operator>>( const TVec2<T>& u, unsigned int shift )
     return TVec2<T>( u.x >> shift, u.y >> shift );
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator==( const TVec2<T>& u, const TVec2<T>& v )
+bool operator==( const TVec2<T>& u, const TVec2<U>& v )
 {
     return u.x == v.x && u.y == v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator==( const TVec2<T>& u, const TRef2<T>& v )
+bool operator==( const TVec2<T>& u, const TRef2<U>& v )
 {
     return u.x == v.x || u.y == v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator==( const TRef2<T>& u, const TVec2<T>& v )
+bool operator==( const TRef2<T>& u, const TVec2<U>& v )
 {
     return u.x == v.x || u.y == v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator==( const TRef2<T>& u, const TRef2<T>& v )
+bool operator==( const TRef2<T>& u, const TRef2<U>& v )
 {
     return u.x == v.x || u.y == v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator!=( const TVec2<T>& u, const TVec2<T>& v )
+bool operator!=( const TVec2<T>& u, const TVec2<U>& v )
 {
     return u.x != v.x || u.y != v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator!=( const TVec2<T>& u, const TRef2<T>& v )
+bool operator!=( const TVec2<T>& u, const TRef2<U>& v )
 {
     return u.x != v.x || u.y != v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator!=( const TRef2<T>& u, const TVec2<T>& v )
+bool operator!=( const TRef2<T>& u, const TVec2<U>& v )
 {
     return u.x != v.x || u.y != v.y;
 }
 
-template <typename T>
+template <typename T, typename U>
 inline
-bool operator!=( const TRef2<T>& u, const TRef2<T>& v )
+bool operator!=( const TRef2<T>& u, const TRef2<U>& v )
 {
     return u.x != v.x || u.y != v.y;
 }

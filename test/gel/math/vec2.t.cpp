@@ -125,34 +125,34 @@ TEST( TVec2, ArithmeticBinaryOperators )
     Vec2 u( 1, 2 );
     Vec2 v( 1, 2 );
 
-    v =  v + 5.0f;
+    v =  v + 5;
     ASSERT_TRUE( v.x == 6 && v.y == 7 );
 
     v = v + u;
     ASSERT_TRUE( v.x == 7 && v.y == 9 );
 
-    v = v - 5.0f;
+    v = v - 5;
     ASSERT_TRUE( v.x == 2 && v.y == 4 );
 
     v = v - u;
     ASSERT_TRUE( v.x == 1 && v.y == 2 );
 
-    v = v * 5.0f;
+    v = v * 5;
     ASSERT_TRUE( v.x == 5 && v.y == 10 );
 
-    v = 5.0f * v;
+    v = 5 * v;
     ASSERT_TRUE( v.x == 25 && v.y == 50 );
 
-    v = v / 5.0f;
+    v = v / 5;
     ASSERT_TRUE( v.x == 5 && v.y == 10 );
 
-    v = v / 5.0f;
+    v = v / 5;
     ASSERT_TRUE( v.x == 1 && v.y == 2 );
 
-    v = 5.0f / v;
+    v = 5 / v;
     ASSERT_TRUE( v.x == 5.0f && v.y == 5.0f/2.0f );
 
-    v = 5.0f / v;
+    v = 5 / v;
     ASSERT_TRUE( v.x == 1 && v.y == 2 );
 
     v = v * u;
@@ -166,8 +166,8 @@ TEST( TVec2, BitwiseBinaryOperators )
 {
     using namespace gel::math;
 
-    TVec2<int> u( 1, 0 );
-    TVec2<int> v( 0, 1 );
+    TVec2<long long> u( 1, 0 );
+    TVec2<long long> v( 0, 1 );
 
     ASSERT_EQ( TVec2<int>( 0, 0 ), u & 0 );
     ASSERT_EQ( TVec2<int>( 0, 0 ), u & v );
@@ -210,10 +210,10 @@ TEST( TRef2, Comparison )
     using namespace gel::math;
 
     TVec2<float> u( 0, 1 );
-    TVec2<float> v( 1, 2 );
+    TVec2<int> v( 1, 2 );
 
     TRef2<float> i( u );
-    TRef2<float> j( v );
+    TRef2<int> j( v );
 
     ASSERT_TRUE( u == i );
     ASSERT_FALSE( u == j );
