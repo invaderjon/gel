@@ -370,7 +370,7 @@ class TMat4x4
      * @param shift The number of bits to shift.
      * @return The resulting matrix.
      */
-    TMat4x4<T>& operator<<=( unsigned int shift );
+    TMat4x4<T>& operator<<=( uint32 shift );
 
     /**
      * Shifts right each component by the specified number of bits.
@@ -378,7 +378,7 @@ class TMat4x4
      * @param shift The number of bits to shift.
      * @return The resulting matrix.
      */
-    TMat4x4<T>& operator>>=( unsigned int shift );
+    TMat4x4<T>& operator>>=( uint32 shift );
 
     /**
      * Gets the bitwise inverse of the components.
@@ -627,7 +627,7 @@ TMat4x4<T> operator^( const TMat4x4<T>& m1, const TMat4x4<T> m2 );
  * @return The resulting matrix.
  */
 template <typename T>
-TMat4x4<T> operator<<( const TMat4x4<T>& m, unsigned int shift );
+TMat4x4<T> operator<<( const TMat4x4<T>& m, uint32 shift );
 
 /**
  * Shifts the components of the matrix right x bits.
@@ -636,7 +636,7 @@ TMat4x4<T> operator<<( const TMat4x4<T>& m, unsigned int shift );
  * @return The resulting matrix.
  */
 template <typename T>
-TMat4x4<T> operator>>( const TMat4x4<T>& m, unsigned int shift );
+TMat4x4<T> operator>>( const TMat4x4<T>& m, uint32 shift );
 
 // COMPARISON BINARY OPERATOR DECLARATIONS
 /**
@@ -1028,7 +1028,7 @@ TMat4x4<T>& TMat4x4<T>::operator^=( const TMat4x4<U>& m )
 
 template <typename T>
 inline
-TMat4x4<T>& TMat4x4<T>::operator<<=( unsigned int shift )
+TMat4x4<T>& TMat4x4<T>::operator<<=( uint32 shift )
 {
     _value[0] <<= shift;
     _value[1] <<= shift;
@@ -1039,7 +1039,7 @@ TMat4x4<T>& TMat4x4<T>::operator<<=( unsigned int shift )
 
 template <typename T>
 inline
-TMat4x4<T>& TMat4x4<T>::operator>>=( unsigned int shift )
+TMat4x4<T>& TMat4x4<T>::operator>>=( uint32 shift )
 {
     _value[0] >>= shift;
     _value[1] >>= shift;
@@ -1376,14 +1376,14 @@ TMat4x4<T> operator^( const TMat4x4<T>& m1, const TMat4x4<T> m2 )
 
 template <typename T>
 inline
-TMat4x4<T> operator<<( const TMat4x4<T>& m, unsigned int shift )
+TMat4x4<T> operator<<( const TMat4x4<T>& m, uint32 shift )
 {
     return TMat4x4<T>( m[0] << shift, m[1] << shift, m[2] << shift, m[3] << shift );
 }
 
 template <typename T>
 inline
-TMat4x4<T> operator>>( const TMat4x4<T>& m, unsigned int shift )
+TMat4x4<T> operator>>( const TMat4x4<T>& m, uint32 shift )
 {
     return TMat4x4<T>( m[0] >> shift, m[1] >> shift, m[2] >> shift, m[3] >> shift );
 }

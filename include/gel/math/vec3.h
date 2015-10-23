@@ -630,7 +630,7 @@ TVec3<T> operator^( const TVec3<T>& u, const TVec3<T>& v );
  * @return The resultant vector.
  */
 template <typename T>
-TVec3<T> operator<<( const TVec3<T>& v, unsigned int shift );
+TVec3<T> operator<<( const TVec3<T>& v, uint32 shift );
 
 /**
  * Shifts the bits of the components right.
@@ -640,7 +640,7 @@ TVec3<T> operator<<( const TVec3<T>& v, unsigned int shift );
  * @return The resultant vector.
  */
 template <typename T>
-TVec3<T> operator>>( const TVec3<T>& u, unsigned int shift );
+TVec3<T> operator>>( const TVec3<T>& u, uint32 shift );
 
 // COMPARISON OPERATOR DECLARATIONS
 /**
@@ -1336,14 +1336,14 @@ TVec3<T> operator^( const TVec3<T>& u, const TVec3<T>& v )
 
 template <typename T>
 inline
-TVec3<T> operator<<( const TVec3<T>& v, unsigned int shift )
+TVec3<T> operator<<( const TVec3<T>& v, uint32 shift )
 {
     return TVec3<T>( v.x << shift, v.y << shift, v.z << shift );
 }
 
 template <typename T>
 inline
-TVec3<T> operator>>( const TVec3<T>& u, unsigned int shift )
+TVec3<T> operator>>( const TVec3<T>& u, uint32 shift )
 {
     return TVec3<T>( u.x >> shift, u.y >> shift, u.z >> shift );
 }

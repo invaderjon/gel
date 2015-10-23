@@ -53,7 +53,12 @@ typedef TMat2x2<double> DMat2;
 /**
  * Defines an integer 2x2 matrix.
  */
-typedef TMat2x2<int> IMat2;
+typedef TMat2x2<int32> IMat2;
+
+/**
+ * Defines a long integer 2x2 matrix.
+ */
+typedef TMat2x2<int64> LMat2;
 
 /**
  * Defines a default 3x3 matrix.
@@ -68,7 +73,12 @@ typedef TMat3x3<double> DMat3;
 /**
  * Defines an integer 3x3 matrix.
  */
-typedef TMat3x3<int> IMat3;
+typedef TMat3x3<int32> IMat3;
+
+/**
+ * Defines an integer 3x3 matrix.
+ */
+typedef TMat3x3<int64> LMat3;
 
 /**
  * Defines a default 4x4 matrix.
@@ -83,7 +93,12 @@ typedef TMat4x4<double> DMat4;
 /**
  * Defines an integer 4x4 matrix.
  */
-typedef TMat4x4<int> IMat4;
+typedef TMat4x4<int32> IMat4;
+
+/**
+ * Defines an integer 4x4 matrix.
+ */
+typedef TMat4x4<int64> LMat4;
 
 } // End nspc math
 
