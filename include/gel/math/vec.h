@@ -11,6 +11,24 @@ namespace gel
 namespace math
 {
 
+template <typename T>
+class TRef2;
+
+template <typename T>
+class TRef3;
+
+template <typename T>
+class TRef4;
+
+template <typename T>
+class TVec2;
+
+template <typename T>
+class TVec3;
+
+template <typename T>
+class TVec4;
+
 /**
  * Defines a default 2D vector.
  */
