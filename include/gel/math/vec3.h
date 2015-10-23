@@ -2,7 +2,16 @@
 #ifndef GEL_VEC3_H
 #define GEL_VEC3_H
 #include <assert.h>
+#include <type_traits>
 #include "gel/gellib.h"
+
+/**
+ * This protects against template issues where U could also be one of the undesired types thereby
+ * hiding another function.
+ */
+#define VALIDATE( T, U, R ) \
+typename std::enable_if<!std::is_same<TVec3<T>,   U>::value && \
+                        !std::is_same<TMat3x3<T>, U>::value, R>::type
 
 namespace gel
 {
@@ -27,6 +36,15 @@ class TVec3;
 
 template <typename T>
 class TVec4;
+
+template <typename T>
+class TMat2x2;
+
+template <typename T>
+class TMat3x3;
+
+template <typename T>
+class TMat4x4;
 
 template <typename T>
 class TVec3
@@ -460,7 +478,7 @@ TVec3<T> operator-( const TVec3<T>& u, const TVec3<T>& v );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec3<T> operator*( const TVec3<T>& v, const U& s );
+VALIDATE( T, U, TVec3<T> ) operator*( const TVec3<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -470,7 +488,7 @@ TVec3<T> operator*( const TVec3<T>& v, const U& s );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec3<U> operator*( const T& s, const TVec3<U>& v );
+VALIDATE( U, T, TVec3<U> ) operator*( const T& s, const TVec3<U>& v );
 
 /**
  * Multiplies the components of two vectors.
@@ -490,7 +508,7 @@ TVec3<T> operator*( const TVec3<T>& u, const TVec3<T>& v );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec3<T> operator/( const TVec3<T>& v, const U& s );
+VALIDATE( T, U, TVec3<T> ) operator/( const TVec3<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -500,7 +518,7 @@ TVec3<T> operator/( const TVec3<T>& v, const U& s );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec3<U> operator/( const T& s, const TVec3<U>& v );
+VALIDATE( U, T, TVec3<U> ) operator/( const T& s, const TVec3<U>& v );
 
 /**
  * Divides the components of two vectors.
@@ -1142,29 +1160,28 @@ TVec3<T> operator-( const TVec3<T>& u, const TVec3<T>& v )
 
 template <typename T>
 inline
-TVec3<T> operator*( const TVec3<T>& v, const T& s )
+VALIDATE( T, T, TVec3<T> ) operator*( const TVec3<T>& v, const T& s )
 {
     return TVec3<T>( v.x * s, v.y * s, v.z * s );
 }
 
 template <typename T, typename U>
 inline
-TVec3<T> operator*( const TVec3<T>& v, const U& s )
+VALIDATE( T, U, TVec3<T> ) operator*( const TVec3<T>& v, const U& s )
 {
     return ( v * static_cast<T>( s ) );
 }
 
-
 template <typename T>
 inline
-TVec3<T> operator*( const T& s, const TVec3<T>& v )
+VALIDATE( T, T, TVec3<T> ) operator*( const T& s, const TVec3<T>& v )
 {
     return TVec3<T>( s * v.x, s * v.y, s * v.z );
 }
 
 template <typename T, typename U>
 inline
-TVec3<U> operator*( const T& s, const TVec3<U>& v )
+VALIDATE( U, T, TVec3<U> ) operator*( const T& s, const TVec3<U>& v )
 {
     return ( static_cast<U>( s ) * v );
 }
@@ -1178,7 +1195,7 @@ TVec3<T> operator*( const TVec3<T>& u, const TVec3<T>& v )
 
 template <typename T>
 inline
-TVec3<T> operator/( const TVec3<T>& v, const T& s )
+VALIDATE( T, T, TVec3<T> ) operator/( const TVec3<T>& v, const T& s )
 {
     assert( s != T( 0 ) );
     return TVec3<T>( v.x / s, v.y / s, v.z / s );
@@ -1186,14 +1203,14 @@ TVec3<T> operator/( const TVec3<T>& v, const T& s )
 template <typename T, typename U>
 
 inline
-TVec3<T> operator/( const TVec3<T>& v, const U& s )
+VALIDATE( T, U, TVec3<T> ) operator/( const TVec3<T>& v, const U& s )
 {
     return ( v / static_cast<T>( s ) );
 }
 
 template <typename T>
 inline
-TVec3<T> operator/( const T& s, const TVec3<T>& v )
+VALIDATE( T, T, TVec3<T> ) operator/( const T& s, const TVec3<T>& v )
 {
     assert( v.x != 0 && v.y != 0 && v.z != 0 );
     return TVec3<T>( s / v.x, s / v.y, s / v.z );
@@ -1201,7 +1218,7 @@ TVec3<T> operator/( const T& s, const TVec3<T>& v )
 
 template <typename T, typename U>
 inline
-TVec3<U> operator/( const T& s, const TVec3<U>& v )
+VALIDATE( U, T, TVec3<U> ) operator/( const T& s, const TVec3<U>& v )
 {
     return ( static_cast<U>( s ) / v );
 }
@@ -1417,5 +1434,7 @@ TRef3<T>::~TRef3()
 } // End nspc math
 
 } // End nspc gel
+
+#undef VALIDATE
 
 #endif //GEL_VEC3_H

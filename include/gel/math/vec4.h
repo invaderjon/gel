@@ -2,7 +2,16 @@
 #ifndef GEL_VEC4_H
 #define GEL_VEC4_H
 #include <assert.h>
+#include <type_traits>
 #include "gel/gellib.h"
+
+/**
+ * This protects against template issues where U could also be one of the undesired types thereby
+ * hiding another function.
+ */
+#define VALIDATE( T, U, R ) \
+typename std::enable_if<!std::is_same<TVec4<T>,   U>::value && \
+                        !std::is_same<TMat4x4<T>, U>::value, R>::type
 
 namespace gel
 {
@@ -29,6 +38,15 @@ template <typename T>
 class TVec4;
 
 template <typename T>
+class TMat2x2;
+
+template <typename T>
+class TMat3x3;
+
+template <typename T>
+class TMat4x4;
+
+template <typename T>
 class TVec4
 {
   public:
@@ -36,11 +54,26 @@ class TVec4
 
     union
     {
-        struct { ValueType x, y, z, w; };
-        struct { ValueType r, g, b, a; };
-        struct { ValueType s, t, p, q; };
-        struct { ValueType i, j, k, l; };
-        struct { ValueType hue, lum, sat, alpha; };
+        struct
+        {
+            ValueType x, y, z, w;
+        };
+        struct
+        {
+            ValueType r, g, b, a;
+        };
+        struct
+        {
+            ValueType s, t, p, q;
+        };
+        struct
+        {
+            ValueType i, j, k, l;
+        };
+        struct
+        {
+            ValueType hue, lum, sat, alpha;
+        };
     };
 
     // IMPLICIT CONSTRUCTORS
@@ -97,7 +130,7 @@ class TVec4
      * @tparam W The fourth component type.
      */
     template <typename U, typename V, typename W>
-    explicit TVec4( const TVec2<U>& v, const V& s3, const W& s4 );
+    explicit TVec4( const TVec2 <U>& v, const V& s3, const W& s4 );
 
     /**
      * Constructs a copy of the vector with the given last component value.
@@ -111,7 +144,7 @@ class TVec4
      * @tparam W The fourth component type.
      */
     template <typename U, typename V, typename W>
-    explicit TVec4( const U& s1, const TVec2<V>& v, const W& s4 );
+    explicit TVec4( const U& s1, const TVec2 <V>& v, const W& s4 );
 
     /**
      * Constructs a copy of the vector with the given last component value.
@@ -124,7 +157,7 @@ class TVec4
      * @tparm W The vector type.
      */
     template <typename U, typename V, typename W>
-    explicit TVec4( const U& s1, const V& s2, const TVec2<W>& v );
+    explicit TVec4( const U& s1, const V& s2, const TVec2 <W>& v );
 
     /**
      * Constructs a composition of the two given vectors.
@@ -135,7 +168,7 @@ class TVec4
      * @tparam V The second vector type.
      */
     template <typename U, typename V>
-    explicit TVec4( const TVec2<U> v1, const TVec2<V>& v2 );
+    explicit TVec4( const TVec2 <U> v1, const TVec2 <V>& v2 );
 
     /**
      * Constructs a copy of the vector with the given first component value.
@@ -146,7 +179,7 @@ class TVec4
      * @tparam V The vector type.
      */
     template <typename U, typename V>
-    explicit TVec4( const U& s, const TVec3<V>& v );
+    explicit TVec4( const U& s, const TVec3 <V>& v );
 
     /**
      * Constructs a copy of the vector with the given first component value.
@@ -157,7 +190,7 @@ class TVec4
      * @tparam V The fourth component type.
      */
     template <typename U, typename V>
-    explicit TVec4( const TVec3<U>& v, const V& s );
+    explicit TVec4( const TVec3 <U>& v, const V& s );
 
     /**
      * Constructs a copy of the vector.
@@ -173,7 +206,7 @@ class TVec4
      *
      * @param r The reference vector.
      */
-    TVec4( const TRef4<T>& r );
+    TVec4( const TRef4 <T>& r );
 
     // UNARY OPERATORS
     /**
@@ -269,14 +302,14 @@ class TVec4
      *
      * @return The resultant vector.
      */
-    TVec4<T>& operator++( );
+    TVec4<T>& operator++();
 
     /**
      * Subtracts one from the vector's component values.
      *
      * @return The resultant vector.
      */
-    TVec4<T>& operator--( );
+    TVec4<T>& operator--();
 
     /**
      * Adds one to the vector's component values.
@@ -464,6 +497,7 @@ class TRef4
     ~TRef4();
 };
 
+
 // ARITHMETIC BINARY OPERATOR DECLARATIONS
 /**
  * Adds a scalar value to the components of a vector.
@@ -513,7 +547,7 @@ TVec4<T> operator-( const TVec4<T>& u, const TVec4<T>& v );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec4<T> operator*( const TVec4<T>& v, const U& s );
+VALIDATE( T, U, TVec4<T> ) operator*( const TVec4<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -523,7 +557,7 @@ TVec4<T> operator*( const TVec4<T>& v, const U& s );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec4<U> operator*( const T& s, const TVec4<U>& v );
+VALIDATE( U, T, TVec4<U> ) operator*( const T& s, const TVec4<U>& v );
 
 /**
  * Multiplies the components of two vectors.
@@ -763,7 +797,7 @@ bool operator!=( const TRef4<T>& u, const TRef4<U>& v );
 // IMPLICIT CONSTRUCTORS
 template <typename T>
 inline
-TVec4<T>::TVec4( ) : x( 0 ), y( 0 ), z( 0 ), w( 0 )
+TVec4<T>::TVec4() : x( 0 ), y( 0 ), z( 0 ), w( 0 )
 {
 }
 
@@ -783,10 +817,10 @@ TVec4<T>::~TVec4()
 template <typename T>
 template <typename U>
 inline
-TVec4<T>::TVec4( const U& s ) : x( static_cast<T>( s ) ),
-                                y( static_cast<T>( s ) ),
-                                z( static_cast<T>( s ) ),
-                                w( static_cast<T>( s ) )
+TVec4<T>::TVec4( const U& s ) : x( static_cast<T>( s )),
+                                y( static_cast<T>( s )),
+                                z( static_cast<T>( s )),
+                                w( static_cast<T>( s ))
 {
 }
 
@@ -794,62 +828,62 @@ template <typename T>
 template <typename U, typename V, typename W, typename X>
 inline
 TVec4<T>::TVec4( const U& s1, const V& s2, const W& s3, const X& s4 )
-    : x( static_cast<T>( s1 ) ), y( static_cast<T>( s2 ) ),
-      z( static_cast<T>( s3 ) ), w( static_cast<T>( s4 ) )
+    : x( static_cast<T>( s1 )), y( static_cast<T>( s2 )),
+      z( static_cast<T>( s3 )), w( static_cast<T>( s4 ))
 {
 }
 
 template <typename T>
 template <typename U, typename V, typename W>
 inline
-TVec4<T>::TVec4( const TVec2<U>& v, const V& s3, const W& s4 )
-    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
-      z( static_cast<T>( s3 ) ), w( static_cast<T>( s4 ) )
+TVec4<T>::TVec4( const TVec2 <U>& v, const V& s3, const W& s4 )
+    : x( static_cast<T>( v.x )), y( static_cast<T>( v.y )),
+      z( static_cast<T>( s3 )), w( static_cast<T>( s4 ))
 {
 }
 
 template <typename T>
 template <typename U, typename V, typename W>
 inline
-TVec4<T>::TVec4( const U& s1, const TVec2<V>& v, const W& s4 )
-    : x( static_cast<T>( s1 ) ), y( static_cast<T>( v.x ) ),
-      z( static_cast<T>( v.y ) ), w( static_cast<T>( s4 ) )
+TVec4<T>::TVec4( const U& s1, const TVec2 <V>& v, const W& s4 )
+    : x( static_cast<T>( s1 )), y( static_cast<T>( v.x )),
+      z( static_cast<T>( v.y )), w( static_cast<T>( s4 ))
 {
 }
 
 template <typename T>
 template <typename U, typename V, typename W>
 inline
-TVec4<T>::TVec4( const U& s1, const V& s2, const TVec2<W>& v )
-    : x( static_cast<T>( s1 ) ), y( static_cast<T>( s2 ) ),
-      z( static_cast<T>( v.x ) ), w( static_cast<T>( v.y ) )
+TVec4<T>::TVec4( const U& s1, const V& s2, const TVec2 <W>& v )
+    : x( static_cast<T>( s1 )), y( static_cast<T>( s2 )),
+      z( static_cast<T>( v.x )), w( static_cast<T>( v.y ))
 {
 }
 
 template <typename T>
 template <typename U, typename V>
 inline
-TVec4<T>::TVec4( const TVec2<U> v1, const TVec2<V>& v2 )
-    : x( static_cast<T>( v1.x ) ), y( static_cast<T>( v1.y ) ),
-      z( static_cast<T>( v2.x ) ), w( static_cast<T>( v2.y ) )
+TVec4<T>::TVec4( const TVec2 <U> v1, const TVec2 <V>& v2 )
+    : x( static_cast<T>( v1.x )), y( static_cast<T>( v1.y )),
+      z( static_cast<T>( v2.x )), w( static_cast<T>( v2.y ))
 {
 }
 
 template <typename T>
 template <typename U, typename V>
 inline
-TVec4<T>::TVec4( const TVec3<U>& v, const V& s )
-    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
-      z( static_cast<T>( v.z ) ), w( static_cast<T>( s ) )
+TVec4<T>::TVec4( const TVec3 <U>& v, const V& s )
+    : x( static_cast<T>( v.x )), y( static_cast<T>( v.y )),
+      z( static_cast<T>( v.z )), w( static_cast<T>( s ))
 {
 }
 
 template <typename T>
 template <typename U, typename V>
 inline
-TVec4<T>::TVec4( const U& s, const TVec3<V>& v )
-    : x( static_cast<T>( s ) ), y( static_cast<T>( v.x ) ),
-      z( static_cast<T>( v.y ) ), w( static_cast<T>( v.z ) )
+TVec4<T>::TVec4( const U& s, const TVec3 <V>& v )
+    : x( static_cast<T>( s )), y( static_cast<T>( v.x )),
+      z( static_cast<T>( v.y )), w( static_cast<T>( v.z ))
 {
 }
 
@@ -857,8 +891,8 @@ template <typename T>
 template <typename U>
 inline
 TVec4<T>::TVec4( const TVec4<U>& v )
-    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
-      z( static_cast<T>( v.z ) ), w( static_cast<T>( v.w ) )
+    : x( static_cast<T>( v.x )), y( static_cast<T>( v.y )),
+      z( static_cast<T>( v.z )), w( static_cast<T>( v.w ))
 {
 }
 
@@ -1225,7 +1259,7 @@ template <typename T, typename U>
 inline
 TVec4<T> operator+( const TVec4<T>& v, const U& s )
 {
-    return ( v + static_cast<T>( s ) );
+    return ( v + static_cast<T>( s ));
 }
 
 template <typename T>
@@ -1246,7 +1280,7 @@ template <typename T, typename U>
 inline
 TVec4<T> operator-( const TVec4<T>& v, const U& s )
 {
-    return ( v - static_cast<T>( s ) );
+    return ( v - static_cast<T>( s ));
 }
 
 template <typename T>
@@ -1258,28 +1292,28 @@ TVec4<T> operator-( const TVec4<T>& u, const TVec4<T>& v )
 
 template <typename T>
 inline
-TVec4<T> operator*( const TVec4<T>& v, const T& s )
+VALIDATE( T, T, TVec4<T> ) operator*( const TVec4<T>& v, const T& s )
 {
     return TVec4<T>( v.x * s, v.y * s, v.z * s, v.w * s );
 }
 
 template <typename T, typename U>
 inline
-TVec4<T> operator*( const TVec4<T>& v, const U& s )
+VALIDATE( T, U, TVec4<T> ) operator*( const TVec4<T>& v, const U& s )
 {
-    return ( v * static_cast<T>( s ) );
+    return ( v * static_cast<T>( s ));
 }
 
 template <typename T>
 inline
-TVec4<T> operator*( const T& s, const TVec4<T>& v )
+VALIDATE( T, T, TVec4<T> ) operator*( const T& s, const TVec4<T>& v )
 {
-    return TVec4<T>( s * v.x, s * v.y, s * v.z, s * v.w );
+    return TVec4 < T > ( s * v.x, s * v.y, s * v.z, s * v.w );
 }
 
 template <typename T, typename U>
 inline
-TVec4<U> operator*( const T& s, const TVec4<U>& v )
+VALIDATE( U, T, TVec4<U> ) operator*( const T& s, const TVec4<U>& v )
 {
     return ( static_cast<U>( s ) * v );
 }
@@ -1288,22 +1322,22 @@ template <typename T>
 inline
 TVec4<T> operator*( const TVec4<T>& u, const TVec4<T>& v )
 {
-    return TVec4<T>( u.x * v.x, u.y * v.y, u.z * v.z, u.w * v.w );
+    return TVec4 < T > ( u.x * v.x, u.y * v.y, u.z * v.z, u.w * v.w );
 }
 
 template <typename T>
 inline
 TVec4<T> operator/( const TVec4<T>& v, const T& s )
 {
-    assert( s != T( 0 ) );
-    return TVec4<T>( v.x / s, v.y / s, v.z / s, v.w / s );
+    assert( s != T( 0 ));
+    return TVec4 < T > ( v.x / s, v.y / s, v.z / s, v.w / s );
 }
 
 template <typename T, typename U>
 inline
 TVec4<T> operator/( const TVec4<T>& v, const U& s )
 {
-    return ( v / static_cast<T>( s ) );
+    return ( v / static_cast<T>( s ));
 }
 
 template <typename T>
@@ -1311,7 +1345,7 @@ inline
 TVec4<T> operator/( const T& s, const TVec4<T>& v )
 {
     assert( v.x != 0 && v.y != 0 && v.z != 0 && v.w != 0 );
-    return TVec4<T>( s / v.x, s / v.y, s / v.z, s / v.w );
+    return TVec4 < T > ( s / v.x, s / v.y, s / v.z, s / v.w );
 }
 
 template <typename T, typename U>
@@ -1326,7 +1360,7 @@ inline
 TVec4<T> operator/( const TVec4<T>& u, const TVec4<T>& v )
 {
     assert ( v.x != 0 && v.y != 0 && v.z != 0 && v.w != 0 );
-    return TVec4<T>( u.x / v.x, u.y / v.y, u.z / v.z, u.w / v.w );
+    return TVec4 < T > ( u.x / v.x, u.y / v.y, u.z / v.z, u.w / v.w );
 }
 
 template <typename T>
@@ -1334,14 +1368,14 @@ inline
 TVec4<T> operator%( const TVec4<T>& v, const T& s )
 {
     assert( s != 0 );
-    return TVec4<T>( v.x % s, v.y % s, v.z % s, v.w % s );
+    return TVec4 < T > ( v.x % s, v.y % s, v.z % s, v.w % s );
 }
 
 template <typename T, typename U>
 inline
 TVec4<T> operator%( const TVec4<T>& v, const U& s )
 {
-    return ( v % static_cast<T>( s ) );
+    return ( v % static_cast<T>( s ));
 }
 
 template <typename T>
@@ -1349,7 +1383,7 @@ inline
 TVec4<T> operator%( const T& s, const TVec4<T>& v )
 {
     assert( v.x != 0 && v.y != 0 && v.z != 0 && v.w != 0 );
-    return TVec4<T>( s % v.x, s % v.y, s % v.z, s % v.w );
+    return TVec4 < T > ( s % v.x, s % v.y, s % v.z, s % v.w );
 }
 
 template <typename T, typename U>
@@ -1364,7 +1398,7 @@ inline
 TVec4<T> operator%( const TVec4<T>& u, const TVec4<T>& v )
 {
     assert ( v.x != 0 && v.y != 0 && v.z != 0 && v.w != 0 );
-    return TVec4<T>( u.x % v.x, u.y % v.y, u.z % v.z, u.w % v.w );
+    return TVec4 < T > ( u.x % v.x, u.y % v.y, u.z % v.z, u.w % v.w );
 }
 
 // BINARY BITWISE OPERATORS
@@ -1372,77 +1406,77 @@ template <typename T>
 inline
 TVec4<T> operator&( const TVec4<T>& v, const T& s )
 {
-    return TVec4<T>( v.x & s, v.y & s, v.z & s, v.w & s );
+    return TVec4 < T > ( v.x & s, v.y & s, v.z & s, v.w & s );
 }
 
 template <typename T, typename U>
 inline
 TVec4<T> operator&( const TVec4<T>& v, const U& s )
 {
-    return ( v & static_cast<T>( s ) );
+    return ( v & static_cast<T>( s ));
 }
 
 template <typename T>
 inline
 TVec4<T> operator&( const TVec4<T>& u, const TVec4<T>& v )
 {
-    return TVec4<T>( u.x & v.x, u.y & v.y, u.z & v.z, u.w & v.w );
+    return TVec4 < T > ( u.x & v.x, u.y & v.y, u.z & v.z, u.w & v.w );
 }
 
 template <typename T>
 inline
 TVec4<T> operator|( const TVec4<T>& v, const T& s )
 {
-    return TVec4<T>( v.x | s, v.y | s, v.z | s, v.w | s );
+    return TVec4 < T > ( v.x | s, v.y | s, v.z | s, v.w | s );
 }
 
 template <typename T, typename U>
 inline
 TVec4<T> operator|( const TVec4<T>& v, const U& s )
 {
-    return ( v | static_cast<T>( s ) );
+    return ( v | static_cast<T>( s ));
 }
 
 template <typename T>
 inline
 TVec4<T> operator|( const TVec4<T>& u, const TVec4<T>& v )
 {
-    return TVec4<T>( u.x | v.x, u.y | v.y, u.z | v.z, u.w | v.w );
+    return TVec4 < T > ( u.x | v.x, u.y | v.y, u.z | v.z, u.w | v.w );
 }
 
 template <typename T>
 inline
 TVec4<T> operator^( const TVec4<T>& v, const T& s )
 {
-    return TVec4<T>( v.x ^ s, v.y ^ s, v.z ^ s, v.w ^ s );
+    return TVec4 < T > ( v.x ^ s, v.y ^ s, v.z ^ s, v.w ^ s );
 }
 
 template <typename T, typename U>
 inline
 TVec4<T> operator^( const TVec4<T>& v, const U& s )
 {
-    return ( v ^ static_cast<T>( s ) );
+    return ( v ^ static_cast<T>( s ));
 }
 
 template <typename T>
 inline
 TVec4<T> operator^( const TVec4<T>& u, const TVec4<T>& v )
 {
-    return TVec4<T>( u.x ^ v.x, u.y ^ v.y, u.z ^ v.z, u.w ^ v.w );
+    return TVec4 < T > ( u.x ^ v.x, u.y ^ v.y, u.z ^ v.z, u.w ^ v.w );
 }
 
 template <typename T>
 inline
 TVec4<T> operator<<( const TVec4<T>& v, unsigned int shift )
 {
-    return TVec4<T>( v.x << shift, v.y << shift, v.z << shift, v.w << shift );
+    return TVec4 < T > ( v.x << shift, v.y << shift, v.z << shift, v.w << shift );
 }
 
 template <typename T>
 inline
 TVec4<T> operator>>( const TVec4<T>& u, unsigned int shift )
 {
-    return TVec4<T>( u.x >> shift, u.y >> shift, u.z >> shift, u.w >> shift );
+    return TVec4 < T > ( u.x >> shift, u.y >> shift, u.z >> shift, u.w >> shift );
 }
 
 template <typename T, typename U>
@@ -1532,5 +1566,7 @@ TRef4<T>::~TRef4()
 } // End nspc math
 
 } // End nspc gel
+
+#undef VALIDATE
 
 #endif //GEL_VEC4_H

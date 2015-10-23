@@ -2,7 +2,16 @@
 #ifndef GEL_VEC2_H
 #define GEL_VEC2_H
 #include <assert.h>
+#include <type_traits>
 #include "gel/gellib.h"
+
+/**
+ * This protects against template issues where U could also be one of the undesired types thereby
+ * hiding another function.
+ */
+#define VALIDATE( T, U, R ) \
+typename std::enable_if<!std::is_same<TVec2<T>,   U>::value && \
+                        !std::is_same<TMat2x2<T>, U>::value, R>::type
 
 namespace gel
 {
@@ -14,7 +23,7 @@ template <typename T>
 class TRef2;
 
 template <typename T>
-class TRef2;
+class TRef3;
 
 template <typename T>
 class TRef4;
@@ -23,10 +32,19 @@ template <typename T>
 class TVec2;
 
 template <typename T>
-class TVec2;
+class TVec3;
 
 template <typename T>
 class TVec4;
+
+template <typename T>
+class TMat2x2;
+
+template <typename T>
+class TMat3x3;
+
+template <typename T>
+class TMat4x4;
 
 template <typename T>
 class TVec2
@@ -432,7 +450,7 @@ TVec2<T> operator-( const TVec2<T>& u, const TVec2<T>& v );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec2<T> operator*( const TVec2<T>& v, const U& s );
+VALIDATE( T, U, TVec2<T> ) operator*( const TVec2<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -442,7 +460,7 @@ TVec2<T> operator*( const TVec2<T>& v, const U& s );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec2<U> operator*( const T& s, const TVec2<U>& v );
+VALIDATE( U, T, TVec2<U> ) operator*( const T& s, const TVec2<U>& v );
 
 /**
  * Multiplies the components of two vectors.
@@ -462,7 +480,7 @@ TVec2<T> operator*( const TVec2<T>& u, const TVec2<T>& v );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec2<T> operator/( const TVec2<T>& v, const U& s );
+VALIDATE( T, U, TVec2<T> ) operator/( const TVec2<T>& v, const U& s );
 
 /**
  * Multiplies the components of a vector by a scalar value.
@@ -472,7 +490,7 @@ TVec2<T> operator/( const TVec2<T>& v, const U& s );
  * @return The resultant vector.
  */
 template <typename T, typename U>
-TVec2<U> operator/( const T& s, const TVec2<U>& v );
+VALIDATE( U, T, TVec2<U> ) operator/( const T& s, const TVec2<U>& v );
 
 /**
  * Divides the components of two vectors.
@@ -1067,28 +1085,28 @@ TVec2<T> operator-( const TVec2<T>& u, const TVec2<T>& v )
 
 template <typename T>
 inline
-TVec2<T> operator*( const TVec2<T>& v, const T& s )
+VALIDATE( T, T, TVec2<T> ) operator*( const TVec2<T>& v, const T& s )
 {
     return TVec2<T>( v.x * s, v.y * s );
 }
 
 template <typename T, typename U>
 inline
-TVec2<T> operator*( const TVec2<T>& v, const U& s )
+VALIDATE( T, U, TVec2<T> ) operator*( const TVec2<T>& v, const U& s )
 {
     return ( v * static_cast<T>( s ) );
 }
 
 template <typename T>
 inline
-TVec2<T> operator*( const T& s, const TVec2<T>& v )
+VALIDATE( T, T, TVec2<T> ) operator*( const T& s, const TVec2<T>& v )
 {
     return TVec2<T>( s * v.x, s * v.y );
 }
 
 template <typename T, typename U>
 inline
-TVec2<U> operator*( const T& s, const TVec2<U>& v )
+VALIDATE( U, T, TVec2<U> ) operator*( const T& s, const TVec2<U>& v )
 {
     return ( static_cast<U>( s ) * v );
 }
@@ -1102,7 +1120,7 @@ TVec2<T> operator*( const TVec2<T>& u, const TVec2<T>& v )
 
 template <typename T>
 inline
-TVec2<T> operator/( const TVec2<T>& v, const T& s )
+VALIDATE( T, T, TVec2<T> ) operator/( const TVec2<T>& v, const T& s )
 {
     assert( s != T( 0 ) );
     return TVec2<T>( v.x / s, v.y / s );
@@ -1110,14 +1128,14 @@ TVec2<T> operator/( const TVec2<T>& v, const T& s )
 
 template <typename T, typename U>
 inline
-TVec2<T> operator/( const TVec2<T>& v, const U& s )
+VALIDATE( T, U, TVec2<T> ) operator/( const TVec2<T>& v, const U& s )
 {
     return ( v / static_cast<T>( s ) );
 }
 
 template <typename T>
 inline
-TVec2<T> operator/( const T& s, const TVec2<T>& v )
+VALIDATE( T, T, TVec2<T> ) operator/( const T& s, const TVec2<T>& v )
 {
     assert( v.x != 0 && v.y != 0 );
     return TVec2<T>( s / v.x, s / v.y );
@@ -1125,7 +1143,7 @@ TVec2<T> operator/( const T& s, const TVec2<T>& v )
 
 template <typename T, typename U>
 inline
-TVec2<U> operator/( const T& s, const TVec2<U>& v )
+VALIDATE( U, T, TVec2<U> ) operator/( const T& s, const TVec2<U>& v )
 {
     return ( static_cast<U>( s ) / v );
 }
@@ -1340,5 +1358,7 @@ TRef2<T>::~TRef2()
 } // End nspc math
 
 } // End nspc gel
+
+#undef VALIDATE
 
 #endif //GEL_VEC2_H
