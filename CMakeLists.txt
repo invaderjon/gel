@@ -49,17 +49,20 @@ set(INCLUDE_FILES
         include/gel/core/itickable.h
         include/gel/debug/ilogger.h
         include/gel/io/istream.h
+        include/gel/math/mat2x2.h
         include/gel/math/precision.h
         include/gel/math/swizzle.h
         include/gel/math/vec.h
         include/gel/math/vec2.h
         include/gel/math/vec3.h
         include/gel/math/vec4.h
+        include/gel/math/mat3x3.h
+        include/gel/math/mat4x4.h
         include/gel/memory/iallocator.h
         include/gel/memory/imemory.h
         include/gel/memory/pool_allocator.h
         include/gel/time/clock.h
-        include/gel/time/time.h include/gel/math/vec1.h)
+        include/gel/time/time.h include/gel/math/mat.h include/gel/math/mat_math.h include/gel/gelfloat.h include/gel/math/gelmath.h)
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
@@ -75,6 +78,7 @@ set(SOURCE_FILES
         src/gel/containers/iset.cpp
         src/gel/debug/ilogger.cpp
         src/gel/io/istream.cpp
+        src/gel/math/mat2x2.cpp
         src/gel/math/precision.cpp
         src/gel/math/swizzle.cpp
         src/gel/math/vec.cpp
@@ -87,7 +91,7 @@ set(SOURCE_FILES
         src/gel/time/clock.cpp
         src/gel/time/time.cpp
         src/gel/util/logger.cpp
-        src/gel/util/logger.h src/gel/math/vec1.cpp)
+        src/gel/util/logger.h)
 
 # INCLUDES
 include_directories(include src)
@@ -107,10 +111,14 @@ if ( BUILD_TESTS )
                 test/gel/time/clock.t.cpp
         )
 
+        set(MATH_TEST_FILES
+                test/gel/math/mat4x4.t.cpp test/gel/math/vec4.t.cpp test/gel/math/vec3.t.cpp test/gel/math/vec2.t.cpp test/gel/math/mat3x3.t.cpp)
+
         set(ALL_TEST_FILES
                 ${MEMORY_TEST_FILES}
                 ${CONTAINER_TEST_FILES}
                 ${TIME_TEST_FILES}
+                ${MATH_TEST_FILES}
         )
 
         include_directories(
