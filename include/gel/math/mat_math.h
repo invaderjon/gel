@@ -196,7 +196,7 @@ TMat3x3<T> Mat::inv( const TMat3x3<T>& m )
     T Ce =  A * I - C * G;
     T Cf = -A * H + B * G;
     T Cg =  B * F - C * E;
-    T Ch = -A * F - C * D;
+    T Ch = -A * F + C * D;
     T Ci =  A * E - B * D;
 
     // adjoint matrix
