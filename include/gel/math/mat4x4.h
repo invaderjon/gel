@@ -1,4 +1,4 @@
-// mat3x3.h
+// mat4x4.h
 #ifndef GEL_MAT4X4_H
 #define GEL_MAT4X4_H
 
@@ -764,7 +764,7 @@ template <typename T>
 inline
 const typename TMat4x4<T>::Column& TMat4x4<T>::operator[]( Size i ) const
 {
-    assert( i < 4 );
+    assert( i < TMat4x4<T>::COLUMNS );
     return _value[i];
 }
 
@@ -772,7 +772,7 @@ template <typename T>
 inline
 typename TMat4x4<T>::Column& TMat4x4<T>::operator[]( Size i )
 {
-    assert( i < 4 );
+    assert( i < TMat4x4<T>::COLUMNS );
     return _value[i];
 }
 
