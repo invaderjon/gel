@@ -42,6 +42,7 @@ configure_file(configured.cmake.in ${SOURCE_DIR}/gel/config.g.cpp)
 
 # SOURCES
 set(INCLUDE_FILES
+        include/gel/gelfloat.h
         include/gel/gelint.h
         include/gel/gellib.h
         include/gel/containers/imap.h
@@ -49,26 +50,30 @@ set(INCLUDE_FILES
         include/gel/core/itickable.h
         include/gel/debug/ilogger.h
         include/gel/io/istream.h
+        include/gel/math/gelmath.h
+        include/gel/math/mat.h
+        include/gel/math/mat_math.h
         include/gel/math/mat2x2.h
+        include/gel/math/mat3x3.h
+        include/gel/math/mat4x4.h
         include/gel/math/precision.h
         include/gel/math/swizzle.h
         include/gel/math/vec.h
         include/gel/math/vec2.h
         include/gel/math/vec3.h
         include/gel/math/vec4.h
-        include/gel/math/mat3x3.h
-        include/gel/math/mat4x4.h
         include/gel/memory/iallocator.h
         include/gel/memory/imemory.h
         include/gel/memory/pool_allocator.h
         include/gel/time/clock.h
-        include/gel/time/time.h include/gel/math/mat.h include/gel/math/mat_math.h include/gel/gelfloat.h include/gel/math/gelmath.h)
+        include/gel/time/time.h )
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
         src/gel/config.g.h
         src/gel/debug.cpp
         src/gel/debug.h
+        src/gel/gelfloat.cpp
         src/gel/gelint.cpp
         src/gel/gellib.cpp
         src/gel/log.cpp
@@ -78,7 +83,12 @@ set(SOURCE_FILES
         src/gel/containers/iset.cpp
         src/gel/debug/ilogger.cpp
         src/gel/io/istream.cpp
+        src/gel/math/gelmath.cpp
+        src/gel/math/mat.cpp
+        src/gel/math/mat_math.cpp
         src/gel/math/mat2x2.cpp
+        src/gel/math/mat3x3.cpp
+        src/gel/math/mat4x4.cpp
         src/gel/math/precision.cpp
         src/gel/math/swizzle.cpp
         src/gel/math/vec.cpp
@@ -91,7 +101,7 @@ set(SOURCE_FILES
         src/gel/time/clock.cpp
         src/gel/time/time.cpp
         src/gel/util/logger.cpp
-        src/gel/util/logger.h)
+        src/gel/util/logger.h )
 
 # INCLUDES
 include_directories(include src)
