@@ -2,8 +2,10 @@
 #ifndef GEL_VEC4_H
 #define GEL_VEC4_H
 #include <assert.h>
+#include <gel/gellib.h>
+#include <gel/gelfloat.h>
 #include <type_traits>
-#include "gel/gellib.h"
+#include "gelmath.h"
 
 /**
  * This protects against template issues where U could also be one of the undesired types thereby
@@ -1479,11 +1481,43 @@ TVec4<T> operator>>( const TVec4<T>& u, uint32 shift )
     return TVec4 < T > ( u.x >> shift, u.y >> shift, u.z >> shift, u.w >> shift );
 }
 
+template <>
+inline
+bool operator==( const TVec4<float>& u, const TVec4<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator==( const TVec4<double>& u, const TVec4<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
+}
+
 template <typename T, typename U>
 inline
 bool operator==( const TVec4<T>& u, const TVec4<U>& v )
 {
     return u.x == v.x && u.y == v.y && u.z == v.z && u.w == v.w;
+}
+
+template <>
+inline
+bool operator==( const TVec4<float>& u, const TRef4<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator==( const TVec4<double>& u, const TRef4<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
 }
 
 template <typename T, typename U>
@@ -1493,11 +1527,43 @@ bool operator==( const TVec4<T>& u, const TRef4<U>& v )
     return u.x == v.x || u.y == v.y || u.z == v.z || u.w == v.w;
 }
 
+template <>
+inline
+bool operator==( const TRef4<float>& u, const TVec4<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator==( const TRef4<double>& u, const TVec4<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
+}
+
 template <typename T, typename U>
 inline
 bool operator==( const TRef4<T>& u, const TVec4<U>& v )
 {
     return u.x == v.x || u.y == v.y || u.z == v.z || u.w == v.w;
+}
+
+template <>
+inline
+bool operator==( const TRef4<float>& u, const TRef4<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator==( const TRef4<double>& u, const TRef4<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z ) && Math::eq( u.w, v.w );
 }
 
 template <typename T, typename U>
@@ -1507,11 +1573,43 @@ bool operator==( const TRef4<T>& u, const TRef4<U>& v )
     return u.x == v.x || u.y == v.y || u.z == v.z || u.w == v.w;
 }
 
+template <>
+inline
+bool operator!=( const TVec4<float>& u, const TVec4<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator!=( const TVec4<double>& u, const TVec4<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
+}
+
 template <typename T, typename U>
 inline
 bool operator!=( const TVec4<T>& u, const TVec4<U>& v )
 {
     return u.x != v.x || u.y != v.y || u.z != v.z || u.w != v.w;
+}
+
+template <>
+inline
+bool operator!=( const TVec4<float>& u, const TRef4<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator!=( const TVec4<double>& u, const TRef4<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
 }
 
 template <typename T, typename U>
@@ -1521,11 +1619,44 @@ bool operator!=( const TVec4<T>& u, const TRef4<U>& v )
     return u.x != v.x || u.y != v.y || u.z != v.z || u.w != v.w;
 }
 
+
+template <>
+inline
+bool operator!=( const TRef4<float>& u, const TVec4<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator!=( const TRef4<double>& u, const TVec4<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
+}
+
 template <typename T, typename U>
 inline
 bool operator!=( const TRef4<T>& u, const TVec4<U>& v )
 {
     return u.x != v.x || u.y != v.y || u.z != v.z || u.w != v.w;
+}
+
+template <>
+inline
+bool operator!=( const TRef4<float>& u, const TRef4<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
+}
+
+template <>
+inline
+bool operator!=( const TRef4<double>& u, const TRef4<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z ) && Math::neq( u.w, v.w );
 }
 
 template <typename T, typename U>

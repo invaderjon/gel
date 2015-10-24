@@ -3,7 +3,8 @@
 #define GEL_VEC3_H
 #include <assert.h>
 #include <type_traits>
-#include "gel/gellib.h"
+#include <gel/gellib.h>
+#include "gelmath.h"
 
 /**
  * This protects against template issues where U could also be one of the undesired types thereby
@@ -123,7 +124,7 @@ class TVec3
      * @tparam V The vector type.
      */
     template <typename U, typename V>
-    explicit TVec3( const U& ss, const TVec2<V>& v );
+    explicit TVec3( const U& s, const TVec2<V>& v );
 
     /**
      * Constructs a copy of the vector.
@@ -133,6 +134,15 @@ class TVec3
      */
     template <typename U>
     explicit TVec3( const TVec3<U>& v );
+
+    /**
+     * Constructs a 3D copy of the vector.
+     *
+     * @param v The vector to copy.
+     * @tparam U The component type.
+     */
+    template <typename U>
+    explicit TVec3( const TVec4<U>& v );
 
     // SWIZZLE CONSTRUCTORS
     /**
@@ -721,7 +731,7 @@ bool operator!=( const TRef3<T>& u, const TVec3<U>& v );
  * @return If they are not equal.
  */
 template <typename T, typename U>
-bool operator!=( const TRef3<T>& u, const TRef3<T>& v );
+bool operator!=( const TRef3<T>& u, const TRef3<U>& v );
 
 // IMPLEMENTATION
 
@@ -785,6 +795,15 @@ template <typename T>
 template <typename U>
 inline
 TVec3<T>::TVec3( const TVec3<U>& v )
+    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
+      z( static_cast<T>( v.z ) )
+{
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec3<T>::TVec3( const TVec4<U>& v )
     : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) ),
       z( static_cast<T>( v.z ) )
 {
@@ -1348,11 +1367,47 @@ TVec3<T> operator>>( const TVec3<T>& u, uint32 shift )
     return TVec3<T>( u.x >> shift, u.y >> shift, u.z >> shift );
 }
 
+template <>
+inline
+bool operator==( const TVec3<float>& u, const TVec3<float>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator==( const TVec3<double>& u, const TVec3<double>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
+}
+
 template <typename T, typename U>
 inline
 bool operator==( const TVec3<T>& u, const TVec3<U>& v )
 {
     return u.x == v.x && u.y == v.y && u.z == v.z;
+}
+
+template <>
+inline
+bool operator==( const TVec3<float>& u, const TRef3<float>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator==( const TVec3<double>& u, const TRef3<double>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
 }
 
 template <typename T, typename U>
@@ -1362,11 +1417,47 @@ bool operator==( const TVec3<T>& u, const TRef3<U>& v )
     return u.x == v.x || u.y == v.y || u.z == v.z;
 }
 
+template <>
+inline
+bool operator==( const TRef3<float>& u, const TVec3<float>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator==( const TRef3<double>& u, const TVec3<double>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
+}
+
 template <typename T, typename U>
 inline
 bool operator==( const TRef3<T>& u, const TVec3<U>& v )
 {
     return u.x == v.x || u.y == v.y || u.z == v.z;
+}
+
+template <>
+inline
+bool operator==( const TRef3<float>& u, const TRef3<float>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator==( const TRef3<double>& u, const TRef3<double>& v )
+{
+    return Math::eq( u.x, v.x ) &&
+        Math::eq( u.y, v.y ) &&
+        Math::eq( u.z, v.z );
 }
 
 template <typename T, typename U>
@@ -1376,11 +1467,47 @@ bool operator==( const TRef3<T>& u, const TRef3<U>& v )
     return u.x == v.x || u.y == v.y || u.z == v.z;
 }
 
+template <>
+inline
+bool operator!=( const TVec3<float>& u, const TVec3<float>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator!=( const TVec3<double>& u, const TVec3<double>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
+}
+
 template <typename T, typename U>
 inline
 bool operator!=( const TVec3<T>& u, const TVec3<U>& v )
 {
     return u.x != v.x || u.y != v.y || u.z != v.z;
+}
+
+template <>
+inline
+bool operator!=( const TVec3<float>& u, const TRef3<float>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator!=( const TVec3<double>& u, const TRef3<double>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
 }
 
 template <typename T, typename U>
@@ -1390,11 +1517,47 @@ bool operator!=( const TVec3<T>& u, const TRef3<U>& v )
     return u.x != v.x || u.y != v.y || u.z != v.z;
 }
 
+template <>
+inline
+bool operator!=( const TRef3<float>& u, const TVec3<float>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator!=( const TRef3<double>& u, const TVec3<double>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
+}
+
 template <typename T, typename U>
 inline
 bool operator!=( const TRef3<T>& u, const TVec3<U>& v )
 {
     return u.x != v.x || u.y != v.y || u.z != v.z;
+}
+
+template <>
+inline
+bool operator!=( const TRef3<float>& u, const TRef3<float>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
+}
+
+template <>
+inline
+bool operator!=( const TRef3<double>& u, const TRef3<double>& v )
+{
+    return Math::neq( u.x, v.x ) &&
+        Math::neq( u.y, v.y ) &&
+        Math::neq( u.z, v.z );
 }
 
 template <typename T, typename U>

@@ -2,8 +2,10 @@
 #ifndef GEL_VEC2_H
 #define GEL_VEC2_H
 #include <assert.h>
+#include <gel/gellib.h>
+#include <gel/gelfloat.h>
 #include <type_traits>
-#include "gel/gellib.h"
+#include "gelmath.h"
 
 /**
  * This protects against template issues where U could also be one of the undesired types thereby
@@ -108,6 +110,24 @@ class TVec2
      */
     template <typename U>
     explicit TVec2( const TVec2<U>& v );
+
+    /**
+     * Constructs a 2D copy of the vector.
+     *
+     * @param v The vector to copy.
+     * @tparam U The component type.
+     */
+    template <typename U>
+    explicit TVec2( const TVec3<U>& v );
+
+    /**
+     * Constructs a 2D copy of the vector.
+     *
+     * @param v The vector to copy.
+     * @tparam U The component type.
+     */
+    template <typename U>
+    explicit TVec2( const TVec4<U>& v );
 
     // SWIZZLE CONSTRUCTORS
     /**
@@ -741,6 +761,22 @@ TVec2<T>::TVec2( const TVec2<U>& v )
 {
 }
 
+template <typename T>
+template <typename U>
+inline
+TVec2<T>::TVec2( const TVec3<U>& v )
+    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) )
+{
+}
+
+template <typename T>
+template <typename U>
+inline
+TVec2<T>::TVec2( const TVec4<U>& v )
+    : x( static_cast<T>( v.x ) ), y( static_cast<T>( v.y ) )
+{
+}
+
 // SWIZZLE CONSTRUCTORS
 template <typename T>
 inline
@@ -1272,11 +1308,39 @@ TVec2<T> operator>>( const TVec2<T>& u, uint32 shift )
     return TVec2<T>( u.x >> shift, u.y >> shift );
 }
 
+template <>
+inline
+bool operator==( const TVec2<float>& u, const TVec2<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator==( const TVec2<double>& u, const TVec2<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
+}
+
 template <typename T, typename U>
 inline
 bool operator==( const TVec2<T>& u, const TVec2<U>& v )
 {
     return u.x == v.x && u.y == v.y;
+}
+
+template <>
+inline
+bool operator==( const TVec2<float>& u, const TRef2<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator==( const TVec2<double>& u, const TRef2<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
 }
 
 template <typename T, typename U>
@@ -1286,11 +1350,39 @@ bool operator==( const TVec2<T>& u, const TRef2<U>& v )
     return u.x == v.x || u.y == v.y;
 }
 
+template <>
+inline
+bool operator==( const TRef2<float>& u, const TVec2<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator==( const TRef2<double>& u, const TVec2<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
+}
+
 template <typename T, typename U>
 inline
 bool operator==( const TRef2<T>& u, const TVec2<U>& v )
 {
     return u.x == v.x || u.y == v.y;
+}
+
+template <>
+inline
+bool operator==( const TRef2<float>& u, const TRef2<float>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator==( const TRef2<double>& u, const TRef2<double>& v )
+{
+    return Math::eq( u.x, v.x ) && Math::eq( u.y, v.y );
 }
 
 template <typename T, typename U>
@@ -1300,11 +1392,39 @@ bool operator==( const TRef2<T>& u, const TRef2<U>& v )
     return u.x == v.x || u.y == v.y;
 }
 
+template <>
+inline
+bool operator!=( const TVec2<float>& u, const TVec2<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator!=( const TVec2<double>& u, const TVec2<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
+}
+
 template <typename T, typename U>
 inline
 bool operator!=( const TVec2<T>& u, const TVec2<U>& v )
 {
     return u.x != v.x || u.y != v.y;
+}
+
+template <>
+inline
+bool operator!=( const TVec2<float>& u, const TRef2<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator!=( const TVec2<double>& u, const TRef2<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
 }
 
 template <typename T, typename U>
@@ -1314,11 +1434,39 @@ bool operator!=( const TVec2<T>& u, const TRef2<U>& v )
     return u.x != v.x || u.y != v.y;
 }
 
+template <>
+inline
+bool operator!=( const TRef2<float>& u, const TVec2<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator!=( const TRef2<double>& u, const TVec2<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
+}
+
 template <typename T, typename U>
 inline
 bool operator!=( const TRef2<T>& u, const TVec2<U>& v )
 {
     return u.x != v.x || u.y != v.y;
+}
+
+template <>
+inline
+bool operator!=( const TRef2<float>& u, const TRef2<float>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
+}
+
+template <>
+inline
+bool operator!=( const TRef2<double>& u, const TRef2<double>& v )
+{
+    return Math::neq( u.x, v.x ) && Math::neq( u.y, v.y );
 }
 
 template <typename T, typename U>
