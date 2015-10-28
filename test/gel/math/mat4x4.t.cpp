@@ -1,4 +1,5 @@
 // mat4x4.t.cpp
+#include <gel/gelint.h>
 #include <gel/math/mat.h>
 #include <gtest/gtest.h>
 
@@ -27,6 +28,8 @@ TEST( TMat4x4, Construction )
     ASSERT_EQ( Mat4::IDENTITY, m );
     ASSERT_EQ( Mat4::IDENTITY, m = Mat4( 1 ) );
     ASSERT_EQ( Mat4::ZERO, m = Mat4( 0 ) );
+    ASSERT_EQ( Mat4::IDENTITY, Mat4( Mat2::IDENTITY ) );
+    ASSERT_EQ( Mat4::IDENTITY, Mat4( Mat3::IDENTITY ) );
 
     m = Mat4( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 );
 

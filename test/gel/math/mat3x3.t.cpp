@@ -28,6 +28,8 @@ TEST( TMat3x3, Construction )
     ASSERT_EQ( Mat3::IDENTITY, m );
     ASSERT_EQ( Mat3::IDENTITY, m = Mat3( 1 ) );
     ASSERT_EQ( Mat3::ZERO, m = Mat3( 0 ) );
+    ASSERT_EQ( Mat3::IDENTITY, Mat3( Mat2::IDENTITY ) );
+    ASSERT_EQ( Mat3::IDENTITY, Mat3( Mat4::IDENTITY ) );
 
     m = Mat3( 0, 1, 2, 3, 4, 5, 6, 7, 8 );
 
