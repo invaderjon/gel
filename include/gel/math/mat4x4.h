@@ -1409,4 +1409,4 @@ bool operator!=( const TMat4x4<T>& m1, const TMat4x4<U>& m2 )
 
 #undef VALIDATE
 
-#endif
+#endif //GEL_MAT4X4_H

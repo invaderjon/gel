@@ -4,7 +4,7 @@
 
 #include <assert.h>
 #include <gel/gellib.h>
-#include <gel/math/vec4.h>
+#include <gel/math/vec3.h>
 #include <gel/math/mat_math.h>
 #include <iostream>
 
@@ -120,7 +120,6 @@ class TMat3x3
      * @param c1 The first column.
      * @param c2 The second column.
      * @param c3 The third column.
-     * @param c4 The fourth column.
      */
     template <typename I, typename J, typename K>
     explicit TMat3x3( const TVec3<I>& c1, const TVec3<J>& c2, const TVec3<K>& c3 );
@@ -725,9 +724,9 @@ template <typename T>
 template <typename U>
 inline
 TMat3x3<T>::TMat3x3( const TMat3x3<U>& m )
-    : _value( { Column( TVec3<T>( m[0] ) ),
-                Column( TVec3<T>( m[1] ) ),
-                Column( TVec3<T>( m[2] ) ) } )
+    : _value( { Column( m[0] ),
+                Column( m[1] ),
+                Column( m[2] ) } )
 {
 }
 
@@ -1349,4 +1348,4 @@ bool operator!=( const TMat3x3<T>& m1, const TMat3x3<U>& m2 )
 
 #undef VALIDATE
 
-#endif
+#endif //GEL_MAT3X3_H

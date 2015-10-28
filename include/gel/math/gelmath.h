@@ -407,8 +407,7 @@ bool Math::eq( float x, float y )
 inline
 bool Math::eq( double x, double y )
 {
-    double av = Float::GEL_DBL_EPSILON * max( abs( x ), abs ( y ) );
-    return abs( x - y ) <= av;
+    return abs( x - y ) <= Float::GEL_DBL_EPSILON * max( abs( x ), abs ( y ) );
 }
 
 inline
