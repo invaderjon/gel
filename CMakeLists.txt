@@ -66,7 +66,8 @@ set(INCLUDE_FILES
         include/gel/memory/imemory.h
         include/gel/memory/pool_allocator.h
         include/gel/time/clock.h
-        include/gel/time/time.h )
+        include/gel/time/time.h
+)
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
@@ -101,7 +102,8 @@ set(SOURCE_FILES
         src/gel/time/clock.cpp
         src/gel/time/time.cpp
         src/gel/util/logger.cpp
-        src/gel/util/logger.h )
+        src/gel/util/logger.h
+)
 
 # INCLUDES
 include_directories(include src)
@@ -122,7 +124,13 @@ if ( BUILD_TESTS )
         )
 
         set(MATH_TEST_FILES
-                test/gel/math/mat4x4.t.cpp test/gel/math/vec4.t.cpp test/gel/math/vec3.t.cpp test/gel/math/vec2.t.cpp test/gel/math/mat3x3.t.cpp)
+                test/gel/math/mat2x2.t.cpp
+                test/gel/math/mat3x3.t.cpp
+                test/gel/math/mat4x4.t.cpp
+                test/gel/math/vec2.t.cpp
+                test/gel/math/vec3.t.cpp
+                test/gel/math/vec4.t.cpp
+        )
 
         set(ALL_TEST_FILES
                 ${MEMORY_TEST_FILES}
