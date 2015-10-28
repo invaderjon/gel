@@ -1,6 +1,7 @@
 // mat_math.h
 #ifndef GEL_MAT_MATH_H
 #define GEL_MAT_MATH_H
+#include <assert.h>
 
 namespace gel
 {

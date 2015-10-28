@@ -2,8 +2,8 @@
 #ifndef GEL_VEC3_H
 #define GEL_VEC3_H
 #include <assert.h>
-#include <type_traits>
 #include <gel/gellib.h>
+#include <type_traits>
 #include "gelmath.h"
 
 /**

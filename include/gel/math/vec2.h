@@ -3,7 +3,6 @@
 #define GEL_VEC2_H
 #include <assert.h>
 #include <gel/gellib.h>
-#include <gel/gelfloat.h>
 #include <type_traits>
 #include "gelmath.h"
 
@@ -14,6 +13,7 @@
 #define VALIDATE( T, U, R ) \
 typename std::enable_if<!std::is_same<TVec2<T>,   U>::value && \
                         !std::is_same<TMat2x2<T>, U>::value, R>::type
+
 
 namespace gel
 {
@@ -420,6 +420,7 @@ class TRef2
      */
     ~TRef2();
 };
+
 
 // ARITHMETIC BINARY OPERATOR DECLARATIONS
 /**
