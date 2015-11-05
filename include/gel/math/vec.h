@@ -1,9 +1,11 @@
 // vec.h
 #ifndef GEL_VEC_H
 #define GEL_VEC_H
-#include "vec2.h"
-#include "vec3.h"
-#include "vec4.h"
+
+#include <gel/math/vec2.h>
+#include <gel/math/vec3.h>
+#include <gel/math/vec4.h>
+#include <gel/math/vec_math.h>
 
 namespace gel
 {

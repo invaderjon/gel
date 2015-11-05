@@ -127,7 +127,7 @@ TEST( TMat2x2, ArithmeticMatrixUnaryOperators )
 
     e = Mat2( -9/8.0f,  5/8.0f,
                7/8.0f, -3/8.0f );
-    EXPECT_TRUE( e == Mat::inv( n ) );
+    EXPECT_TRUE( e == Mat::invert( n ) );
 
     // division is not checked because of rounding errors
 
@@ -224,7 +224,7 @@ TEST( TMat2x2, ArithmeticMatrixBinaryOperators )
     e = Mat2( -2, -3, -4, -5 );
     EXPECT_TRUE( e == m - n );
 
-    EXPECT_TRUE( m / n == m * Mat::inv( n ) );
+    EXPECT_TRUE( m / n == m * Mat::invert( n ) );
 
     row = DMat2::Row( 1, 2 );
     col = DMat2::Column( 5, 11 );

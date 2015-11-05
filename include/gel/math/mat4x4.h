@@ -1231,21 +1231,21 @@ template <typename T>
 inline
 typename TMat4x4<T>::Column operator/( const TMat4x4<T>& m, const typename TMat4x4<T>::Row& v )
 {
-    return Mat::inv( m ) * v;
+    return Mat::invert( m ) * v;
 }
 
 template <typename T>
 inline
 typename TMat4x4<T>::Row operator/( const typename TMat4x4<T>::Column& v, const TMat4x4<T>& m )
 {
-    return v * Mat::inv( m );
+    return v * Mat::invert( m );
 }
 
 template <typename T>
 inline
 TMat4x4<T> operator/( const TMat4x4<T>& m1, const TMat4x4<T>& m2 )
 {
-    return ( m1 * Mat::inv( m2 ) );
+    return ( m1 * Mat::invert( m2 ) );
 }
 
 template <typename T>

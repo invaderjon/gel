@@ -67,7 +67,7 @@ set(INCLUDE_FILES
         include/gel/memory/pool_allocator.h
         include/gel/time/clock.h
         include/gel/time/time.h
-)
+        include/gel/math/vec_math.h)
 
 set(SOURCE_FILES
         src/gel/config.g.cpp
@@ -103,7 +103,7 @@ set(SOURCE_FILES
         src/gel/time/time.cpp
         src/gel/util/logger.cpp
         src/gel/util/logger.h
-)
+        src/gel/math/vec_math.cpp)
 
 # INCLUDES
 include_directories(include src)

@@ -1179,21 +1179,21 @@ template <typename T>
 inline
 typename TMat3x3<T>::Column operator/( const TMat3x3<T>& m, const typename TMat3x3<T>::Row& v )
 {
-    return Mat::inv( m ) * v;
+    return Mat::invert( m ) * v;
 }
 
 template <typename T>
 inline
 typename TMat3x3<T>::Row operator/( const typename TMat3x3<T>::Column& v, const TMat3x3<T>& m )
 {
-    return v * Mat::inv( m );
+    return v * Mat::invert( m );
 }
 
 template <typename T>
 inline
 TMat3x3<T> operator/( const TMat3x3<T>& m1, const TMat3x3<T>& m2 )
 {
-    return ( m1 * Mat::inv( m2 ) );
+    return ( m1 * Mat::invert( m2 ) );
 }
 
 template <typename T>

@@ -149,7 +149,7 @@ TEST( TMat4x4, ArithmeticMatrixUnaryOperators )
                1/40.0f, 11/40.0f, -9/40.0f,  1/40.0f,
               11/40.0f, -9/40.0f,  1/40.0f,  1/40.0f,
               -9/40.0f,  1/40.0f,  1/40.0f, 11/40.0f );
-    EXPECT_EQ( e, Mat::inv( n ) );
+    EXPECT_EQ( e, Mat::invert( n ) );
 
     // division is not checked because of rounding errors
 
@@ -258,7 +258,7 @@ TEST( TMat4x4, ArithmeticMatrixBinaryOperators )
     EXPECT_EQ( e, m = m - n );
     m = r;
 
-    EXPECT_TRUE( m / n == m * Mat::inv( n ) );
+    EXPECT_TRUE( m / n == m * Mat::invert( n ) );
 
     row = DMat4::Row( 1, 2, 3, 4 );
     col = DMat4::Column( 30, 24, 22, 24 );
