@@ -13,6 +13,12 @@ namespace math
 
 struct Math
 {
+    enum AngleUnit
+    {
+        Radians,
+        Degrees
+    };
+
     // INTEGRAL MATH
     /**
      * Gets the absolute value of an integer.
@@ -148,6 +154,66 @@ struct Math
      * @return The max value.
      */
     static double max( double x, double y );
+
+    /**
+     * Computes cosine of the given angle.
+     *
+     * @param theta The angle.
+     * @tparam Units The angle units to use.
+     * @return cosine(theta).
+     */
+    template <AngleUnit Units = Radians>
+    static float cos( float theta );
+
+    /**
+     * Computes cosine of the given angle.
+     *
+     * @param theta The angle.
+     * @tparam Units The angle units to use.
+     * @return cosine(theta).
+     */
+    template <AngleUnit Units = Radians>
+    static double cos( double theta );
+
+    /**
+     * Computes sine of the given angle.
+     *
+     * @param theta The angle.
+     * @tparam Units The angle units to use.
+     * @return sine(theta).
+     */
+    template <AngleUnit Units = Radians>
+    static float sin( float theta );
+
+    /**
+     * Computes sine of the given angle.
+     *
+     * @param theta The angle.
+     * @tparam Units The angle units to use.
+     * @return sine(theta).
+     */
+    template <AngleUnit Units = Radians>
+    static double sin( double theta );
+
+    /**
+     * Computes tangent of the given angle.
+     *
+     * @param theta The angle.
+     * @tparam Units The angle units to use.
+     * @return tangent(theta).
+     */
+    template <AngleUnit Units = Radians>
+    static float tan( float theta );
+
+    /**
+     * Computes tangent of the given angle.
+     *
+     * @param theta The angle.
+     * @tparam Units The angle units to use.
+     * @return tangent(theta).
+     */
+    template <AngleUnit Units = Radians>
+    static double tan( double theta );
 
     // FLOATING POINT COMPARISON
     /**
@@ -395,6 +461,90 @@ inline
 double Math::max( double x, double y )
 {
     return x > y ? x : y;
+}
+
+template <>
+inline
+float Math::cos<Math::Radians>( float theta )
+{
+    return std::cos( theta );
+}
+
+template <>
+inline
+float Math::cos<Math::Degrees>( float theta )
+{
+    return std::cos( theta * ( static_cast<float>( M_PI ) / 180.0f ) );
+}
+
+template <>
+inline
+double Math::cos<Math::Radians>( double theta )
+{
+    return std::cos( theta );
+}
+
+template <>
+inline
+double Math::cos<Math::Degrees>( double theta )
+{
+    return std::cos( theta * ( static_cast<double>( M_PI ) / 180.0 ) );
+}
+
+template <>
+inline
+float Math::sin<Math::Radians>( float theta )
+{
+    return std::sin( theta );
+}
+
+template <>
+inline
+float Math::sin<Math::Degrees>( float theta )
+{
+    return std::sin( theta * ( static_cast<float>( M_PI ) / 180.0f ) );
+}
+
+template <>
+inline
+double Math::sin<Math::Radians>( double theta )
+{
+    return std::sin( theta );
+}
+
+template <>
+inline
+double Math::sin<Math::Degrees>( double theta )
+{
+    return std::sin( theta * ( static_cast<double>( M_PI ) / 180.0 ) );
+}
+
+template <>
+inline
+float Math::tan<Math::Radians>( float theta )
+{
+    return std::tan( theta );
+}
+
+template <>
+inline
+float Math::tan<Math::Degrees>( float theta )
+{
+    return std::tan( theta * ( static_cast<float>( M_PI ) / 180.0f ) );
+}
+
+template <>
+inline
+double Math::tan<Math::Radians>( double theta )
+{
+    return std::tan( theta );
+}
+
+template <>
+inline
+double Math::tan<Math::Degrees>( double theta )
+{
+    return std::tan( theta * ( static_cast<double>( M_PI ) / 180.0 ) );
 }
 
 // FLOATING POINT COMPARISON FUNCTIONS
