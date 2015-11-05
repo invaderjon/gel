@@ -901,7 +901,7 @@ TVec4<T>::TVec4( const TVec4<U>& v )
 // SWIZZLE CONSTRUCTORS
 template <typename T>
 inline
-TVec4<T>::TVec4( const TRef4<T>& r ) : x( r.x ), y( r.y ), y( r.z ), w( r.w )
+TVec4<T>::TVec4( const TRef4<T>& r ) : x( r.x ), y( r.y ), z( r.z ), w( r.w )
 {
 }
 
